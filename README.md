@@ -1,2 +1,2 @@
 # testing
-testing git for my stuff
+testing git
