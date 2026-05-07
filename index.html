@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#050505" />
+<title>Nupur Kumar — Research · Advocacy · Systems · Writing</title>
+<meta name="description" content="Chapman University student exploring law, technology, public systems, and advocacy through research, competition, professional work, and interdisciplinary projects." />
+<meta name="author" content="Nupur Kumar" />
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="Nupur Kumar — Research · Advocacy · Systems · Writing" />
+<meta property="og:description" content="Chapman University student exploring law, technology, public systems, and advocacy." />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050505'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Inter,sans-serif' font-weight='700' font-size='16' fill='%23ffffff'%3EN%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg:        #050505;
+  --bg-2:      #0a0b0c;
+  --surface:   #131415;
+  --surface-2: #1a1c1d;
+  --surface-3: #222426;
+  --line:      #1f2122;
+  --line-2:    #2a2c2e;
+  --line-3:    #34373a;
+  --ink:       #ffffff;
+  --ink-2:     #c9cdd1;
+  --ink-3:     #8a8f95;
+  --ink-4:     #5d6268;
+  --accent:    #f5f1e8;
+  --accent-2:  #e8d8b5;
+  --accent-3:  #d4a574;
+  --warn:      #ff5a4a;
+
+  --serif: 'Space Grotesk', system-ui, sans-serif;
+  --sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --r-pill: 1000px;
+  --r-card: 18px;
+  --r-sm:   10px;
+
+  --gutter: clamp(20px, 4vw, 56px);
+  --max:    1280px;
+
+  --ease:    cubic-bezier(.16,1,.3,1);
+  --ease-2:  cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+::selection { background:var(--ink); color:var(--bg); }
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga", "ss01";
+  overflow-x: hidden;
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+  position: relative;
+}
+
+/* Ambient grain — subtle film texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: .035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Soft top vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 280px;
+  z-index: 50;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(5,5,5,.85) 0%, rgba(5,5,5,0) 100%);
+  opacity: .8;
+}
+
+a { color:inherit; text-decoration:none; }
+
+/* ════════════════════════════════════════
+   GLASS NAV
+   ════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 18px;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  padding: 0 16px;
+}
+
+.nav-inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  background: rgba(19, 20, 21, 0.78);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 12px;
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  font-weight: 600;
+}
+.nav-brand .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-3);
+  box-shadow: 0 0 12px rgba(212,165,116,.55);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: var(--r-pill);
+  color: var(--ink-3);
+  white-space: nowrap;
+  transition: color .25s var(--ease), background .25s var(--ease);
+}
+.nav-links a:hover { color: var(--ink); background: var(--surface-2); }
+.nav-links a.active { color: var(--ink); background: var(--surface-3); }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  margin-left: 4px;
+  transition: transform .3s var(--ease), background .3s var(--ease);
+}
+.nav-cta:hover { background: var(--accent-2); transform: translateY(-1px); }
+.nav-cta .arr { display:inline-block; transition: transform .3s var(--ease); }
+.nav-cta:hover .arr { transform: translateX(3px); }
+
+.nav-mobile-toggle { display: none; }
+
+@media (max-width: 920px) {
+  .nav-links { display: none; }
+  .nav-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: var(--r-pill);
+    color: var(--ink);
+    background: var(--surface-2);
+    border: none;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .nav-mobile-toggle .bars {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .nav-mobile-toggle .bars span {
+    display:block; width:14px; height:1.5px; background:var(--ink); border-radius:2px;
+    transition: transform .3s var(--ease), opacity .3s var(--ease);
+  }
+  body.menu-open .nav-mobile-toggle .bars span:first-child { transform: translateY(4.5px) rotate(45deg); }
+  body.menu-open .nav-mobile-toggle .bars span:nth-child(2) { opacity:0; }
+  body.menu-open .nav-mobile-toggle .bars span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
+}
+
+/* Glass nav — fit every screen */
+@media (max-width: 600px) {
+  .nav { top: 12px; padding: 0 12px; }
+  .nav-inner { padding: 5px; gap: 4px; }
+  .nav-brand { padding: 7px 12px 7px 10px; font-size: 12.5px; }
+  .nav-brand .dot { width: 7px; height: 7px; }
+  .nav-cta { padding: 8px 13px; font-size: 12px; margin-left: 2px; }
+  .nav-mobile-toggle { padding: 8px 11px; font-size: 12px; }
+}
+@media (max-width: 380px) {
+  /* Drop the brand text on tiny phones — keep just the dot */
+  .nav-brand span:not(.dot) { display: none; }
+  .nav-brand { padding: 8px 10px; }
+  .nav-cta { padding: 8px 11px; font-size: 11.5px; }
+}
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,5,.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.menu-open .mobile-drawer { opacity: 1; pointer-events: auto; }
+.mobile-drawer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.mobile-drawer a {
+  display: block;
+  padding: 12px 28px;
+  color: var(--ink-3);
+  transition: color .3s var(--ease);
+}
+.mobile-drawer a:hover { color: var(--ink); }
+
+/* ════════════════════════════════════════
+   LAYOUT
+   ════════════════════════════════════════ */
+.section {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 160px) var(--gutter);
+  position: relative;
+}
+@media (max-width: 600px) {
+  .section { padding: 64px 22px; }
+  h2.section-title { font-size: clamp(34px, 9vw, 48px); margin-bottom: 18px; }
+  .section-lead { font-size: 16px; margin-bottom: 36px; }
+  .eyebrow { margin-bottom: 22px; font-size: 11px; padding: 5px 11px 5px 9px; }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 28px;
+  padding: 6px 12px 6px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+}
+.eyebrow .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent-3);
+  letter-spacing: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+
+h2.section-title {
+  font-size: clamp(40px, 6.5vw, 84px);
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: -0.035em;
+}
+h2.section-title em {
+  font-style: italic;
+  color: var(--ink-3);
+  font-weight: 400;
+}
+h2.section-title .accent {
+  color: var(--accent-3);
+}
+
+.section-lead {
+  font-family: var(--sans);
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.5;
+  color: var(--ink-2);
+  font-weight: 400;
+  max-width: 760px;
+  margin-bottom: 64px;
+}
+
+/* ════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(120px, 18vh, 200px) var(--gutter) clamp(80px, 12vw, 120px);
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .hero { padding: 110px 22px 80px; }
+  .hero-meta { gap: 8px; flex-wrap: wrap; }
+  .hero-meta .sep { display: none; }
+  .hero-meta .live { font-size: 11px; padding: 4px 10px 4px 9px; }
+  .hero-tagline { gap: 6px; }
+  .hero-tagline .pill { font-size: 12px; padding: 6px 12px; }
+  .hero-tagline .pill .d { margin-right: 7px; }
+  .hero-actions { width: 100%; flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-actions .btn { justify-content: center; }
+  .hero-scroll { bottom: 22px; font-size: 10px; letter-spacing: .14em; }
+  .hero-scroll .arrow { width: 18px; }
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
+  z-index: 0;
+}
+
+.paper-card {
+  position: absolute;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-card);
+  padding: 18px 22px;
+  font-family: var(--sans);
+  color: var(--ink-2);
+  box-shadow:
+    0 30px 60px -30px rgba(0,0,0,.7),
+    0 12px 24px -12px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: transform .8s var(--ease), opacity .8s var(--ease);
+}
+.paper-card .pc-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-3);
+  margin-bottom: 8px;
+}
+.paper-card .pc-body {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.paper-card.dark {
+  background: var(--bg-2);
+  border-color: var(--line);
+}
+.paper-card.cream {
+  background: var(--accent);
+  border-color: rgba(0,0,0,.06);
+  color: #1a1a1a;
+}
+.paper-card.cream .pc-tag { color: #6b5a3e; }
+.paper-card.cream .pc-body { color: #0a0a0a; }
+.paper-card.warn {
+  background: var(--warn);
+  border-color: rgba(0,0,0,.1);
+}
+.paper-card.warn .pc-tag { color: rgba(255,255,255,.75); }
+.paper-card.warn .pc-body { color: #fff; }
+
+/* positions for hero floating cards (desktop) */
+.pc-1 { top: 8%;  left: 6%;  width: 220px; transform: rotate(-6deg) translateZ(60px); }
+.pc-2 { top: 18%; right: 8%; width: 240px; transform: rotate(7deg)  translateZ(120px); }
+.pc-3 { top: 54%; left: 2%;  width: 200px; transform: rotate(-3deg) translateZ(40px); }
+.pc-4 { top: 60%; right: 4%; width: 230px; transform: rotate(8deg)  translateZ(80px); }
+.pc-5 { top: 30%; left: 38%; width: 200px; transform: rotate(2deg)  translateZ(160px); }
+.pc-6 { top: 76%; left: 30%; width: 180px; transform: rotate(-5deg) translateZ(20px); }
+
+@media (max-width: 920px) {
+  .pc-5, .pc-6 { display: none; }
+  .pc-1 { width: 160px; top: 6%; left: 4%; }
+  .pc-2 { width: 170px; top: 10%; right: 4%; }
+  .pc-3 { width: 150px; top: 60%; left: 2%; }
+  .pc-4 { width: 160px; top: 64%; right: 2%; }
+  .paper-card { padding: 14px 16px; }
+  .paper-card .pc-body { font-size: 14px; }
+}
+@media (max-width: 600px) {
+  .pc-3, .pc-4 { display: none; }
+  .pc-1 { width: 130px; top: 4%; left: 2%; opacity: .42; }
+  .pc-2 { width: 130px; top: 8%; right: 2%; opacity: .38; }
+  .paper-card .pc-tag  { font-size: 9px; }
+  .paper-card .pc-body { font-size: 12.5px; }
+  .paper-card { padding: 11px 13px; border-radius: 12px; }
+}
+@media (max-width: 400px) {
+  .pc-2 { display: none; }
+  .pc-1 { opacity: .35; width: 120px; }
+}
+
+.hero-fg {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+}
+.hero-meta .live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+}
+.hero-meta .live::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 10px rgba(74,222,128,.7);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: .4; } }
+.hero-meta .sep { color: var(--ink-4); }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 11vw, 156px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  margin-bottom: 32px;
+  color: var(--ink);
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.hero-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.hero-tagline .pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: -0.005em;
+}
+.hero-tagline .pill .d {
+  display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent-3);
+  margin-right: 9px;
+  opacity: .7;
+}
+
+.hero-intro {
+  font-family: var(--sans);
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 640px;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: var(--r-pill);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-2);
+  border-color: var(--line-2);
+}
+.btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); transform: translateY(-1px); }
+.btn .arr { display:inline-block; transition: transform .3s var(--ease); }
+.btn:hover .arr { transform: translateX(3px); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: .7;
+}
+.hero-scroll .arrow {
+  width: 24px; height: 1px; background: var(--ink-4); position: relative;
+  animation: arrowSlide 2s ease-in-out infinite;
+}
+.hero-scroll .arrow::after {
+  content: ''; position: absolute; right: -1px; top: -3px;
+  width: 7px; height: 7px;
+  border-right: 1px solid var(--ink-4);
+  border-bottom: 1px solid var(--ink-4);
+  transform: rotate(-45deg);
+}
+@keyframes arrowSlide { 50% { transform: translateY(4px); } }
+
+/* ════════════════════════════════════════
+   PAPERS — vertical stack, scroll-rotates in 3D
+   ════════════════════════════════════════ */
+.papers {
+  position: relative;
+  padding: clamp(80px, 12vw, 140px) var(--gutter) clamp(80px, 12vw, 140px);
+  max-width: var(--max);
+  margin: 0 auto;
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+}
+.papers-head {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.papers-head .eyebrow { margin-bottom: 24px; }
+.papers-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+.papers-head h2 em { font-style: italic; color: var(--ink-3); font-weight: 400; }
+.papers-head p {
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--ink-3);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+.paper-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18vh;
+  padding: 12vh 0 16vh;
+  transform-style: preserve-3d;
+}
+
+.paper-3d {
+  width: min(520px, 88vw);
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  padding: clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  box-shadow:
+    0 60px 100px -40px rgba(0,0,0,.75),
+    0 28px 50px -20px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  font-family: var(--sans);
+}
+
+/* Paper variants */
+.paper-3d.cream {
+  background: linear-gradient(180deg, #f5f1e8 0%, #ebe4d2 100%);
+  color: #1a1a1a;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.paper-3d.dark {
+  background: linear-gradient(180deg, #1a1c1d 0%, #131415 100%);
+  color: #f5f1e8;
+  border: 1px solid var(--line-2);
+}
+.paper-3d.warn {
+  background: linear-gradient(180deg, #ff5a4a 0%, #e23d2d 100%);
+  color: #ffffff;
+  border: 1px solid rgba(0,0,0,.08);
+}
+.paper-3d.amber {
+  background: linear-gradient(180deg, #d4a574 0%, #b88550 100%);
+  color: #1a1a1a;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+/* Paper texture overlay (subtle grain) */
+.paper-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .08;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.paper-3d.dark::before { mix-blend-mode: overlay; opacity: .12; }
+
+.paper-3d .p-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+.paper-3d .p-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px 5px 9px;
+  border-radius: var(--r-pill);
+  background: rgba(0,0,0,.06);
+  border: 1px solid rgba(0,0,0,.1);
+  color: inherit;
+}
+.paper-3d.dark .p-tag {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+}
+.paper-3d.warn .p-tag,
+.paper-3d.amber .p-tag {
+  background: rgba(0,0,0,.12);
+  border-color: rgba(0,0,0,.18);
+}
+.paper-3d .p-tag::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; opacity: .55;
+}
+.paper-3d .p-num {
+  font-size: 10px;
+  opacity: .55;
+}
+.paper-3d .p-mid {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.paper-3d .p-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.4vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+.paper-3d .p-title em { font-style: italic; opacity: .65; font-weight: 400; }
+.paper-3d .p-bot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+  position: relative; z-index: 1;
+}
+.paper-3d .p-meta {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: .72;
+  max-width: 70%;
+}
+.paper-3d .p-stamp {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  opacity: .55;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+/* Paper stack — responsive sizing */
+@media (max-width: 920px) {
+  .paper-stack { gap: 14vh; padding: 8vh 0 12vh; }
+  .paper-3d { width: min(460px, 90vw); aspect-ratio: 4 / 5; }
+}
+@media (max-width: 600px) {
+  .papers { padding: 64px var(--gutter) 64px; }
+  .paper-stack { gap: 9vh; padding: 4vh 0 8vh; }
+  .paper-3d {
+    width: 92vw;
+    aspect-ratio: 1.05 / 1;        /* near-square — fits better in viewport */
+    padding: 22px 22px 20px;
+    border-radius: 14px;
+  }
+  .paper-3d .p-title { font-size: 20px; }
+  .paper-3d .p-meta  { font-size: 11.5px; max-width: 65%; }
+  .paper-3d .p-stamp { font-size: 9px; padding: 3px 8px; }
+  .paper-3d .p-top   { font-size: 10px; }
+  .paper-3d .p-tag   { padding: 4px 9px 4px 7px; }
+  .papers-head { margin-bottom: 36px; }
+  .papers-head .eyebrow { margin-bottom: 16px; }
+}
+@media (max-width: 380px) {
+  .paper-3d {
+    aspect-ratio: 1 / 1;
+    padding: 18px 18px 16px;
+  }
+  .paper-3d .p-title { font-size: 18px; }
+  .paper-3d .p-meta  { font-size: 11px; max-width: 100%; }
+  .paper-3d .p-bot   { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+/* ════════════════════════════════════════
+   ABOUT
+   ════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.about-grid p {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+}
+.about-grid .right {
+  position: sticky;
+  top: 110px;
+}
+.about-pull {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  padding: 28px 30px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  position: relative;
+}
+.about-pull em { color: var(--accent-3); font-style: italic; font-weight: 400; }
+.about-pull .quote-mark {
+  font-family: var(--serif);
+  position: absolute;
+  top: 6px; left: 18px;
+  font-size: 60px;
+  color: var(--line-3);
+  line-height: 1;
+  font-style: italic;
+}
+.about-pull .pull-body { padding-top: 24px; }
+.about-pull .pull-cite {
+  display: block;
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 400;
+}
+@media (max-width: 920px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-grid .right { position: static; }
+}
+@media (max-width: 600px) {
+  .about-grid p { font-size: 15.5px; line-height: 1.6; margin-bottom: 18px; }
+  .about-pull { padding: 22px 22px; font-size: 19px; }
+  .about-pull .quote-mark { font-size: 44px; top: 4px; left: 14px; }
+  .about-pull .pull-body { padding-top: 14px; }
+}
+
+/* ════════════════════════════════════════
+   EDUCATION
+   ════════════════════════════════════════ */
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 40px 44px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.edu-school {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.edu-loc {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-3);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.edu-loc .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--ink-4); }
+.edu-degrees {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.edu-degrees .deg {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.edu-degrees .deg .badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  background: var(--surface-3);
+  border: 1px solid var(--line-2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.edu-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.edu-meta .item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.edu-meta .item .k {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.edu-meta .item .v {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.edu-meta .item.gpa .v { color: var(--accent-3); }
+
+.edu-side {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 28px 30px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.edu-side h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.interest-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.interest-pills .ip {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-pill);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+.interest-pills .ip:hover {
+  background: var(--surface-3);
+  border-color: var(--line-3);
+  color: var(--ink);
+}
+
+@media (max-width: 920px) {
+  .edu-card { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+}
+@media (max-width: 600px) {
+  .edu-card { padding: 24px 20px; gap: 24px; }
+  .edu-school { font-size: 28px; }
+  .edu-meta { gap: 22px; padding-top: 18px; }
+  .edu-meta .item .v { font-size: 18px; }
+  .edu-degrees .deg { font-size: 14px; }
+  .edu-side { padding: 22px 20px; }
+}
+
+/* ════════════════════════════════════════
+   EXPERIENCE — timeline cards
+   ════════════════════════════════════════ */
+.exp-stack {
+  display: grid;
+  gap: 16px;
+}
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 32px 36px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 36px;
+  align-items: start;
+  transition: border-color .3s var(--ease), background .3s var(--ease), transform .4s var(--ease);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.exp-card:hover {
+  border-color: var(--line-3);
+  background: var(--surface-2);
+}
+.exp-period {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.exp-period .yr {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-3);
+  font-weight: 500;
+}
+.exp-period .now {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 8px;
+  background: rgba(74, 222, 128, .08);
+  border: 1px solid rgba(74, 222, 128, .25);
+  border-radius: var(--r-pill);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #4ade80;
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+}
+.exp-period .now::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74,222,128,.6);
+}
+.exp-role {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  line-height: 1.15;
+}
+.exp-org {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.exp-desc {
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .exp-card { grid-template-columns: 1fr; gap: 18px; padding: 26px 24px; }
+  .exp-period { flex-direction: row; align-items: center; gap: 14px; flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .exp-card { padding: 22px 20px; }
+  .exp-role { font-size: 22px; }
+  .exp-org  { font-size: 13px; }
+  .exp-desc { font-size: 14.5px; }
+}
+
+/* ════════════════════════════════════════
+   WRITING
+   ════════════════════════════════════════ */
+.writing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.write-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 36px 38px 32px;
+  overflow: hidden;
+  transition: border-color .35s var(--ease), background .35s var(--ease), transform .5s var(--ease);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+  will-change: transform;
+}
+.write-card:hover {
+  background: var(--surface-2);
+  border-color: var(--line-3);
+}
+.write-card .yr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(212, 165, 116, .1);
+  border: 1px solid rgba(212, 165, 116, .25);
+  border-radius: var(--r-pill);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent-3);
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+  margin-bottom: 24px;
+}
+.write-card .yr-badge::before {
+  content: ''; display: inline-block;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent-3);
+}
+.write-card h3 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.write-card h3 em { font-style: italic; color: var(--ink-2); font-weight: 400; }
+.write-card p {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: auto;
+  padding-bottom: 24px;
+}
+.write-card .meta {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.write-card .meta .pub { color: var(--ink-3); }
+
+@media (max-width: 920px) {
+  .writing-grid { grid-template-columns: 1fr; }
+  .write-card { min-height: auto; padding: 30px 30px 26px; }
+}
+@media (max-width: 600px) {
+  .write-card { padding: 24px 22px 22px; }
+  .write-card h3 { font-size: 22px; }
+  .write-card p { font-size: 14.5px; padding-bottom: 18px; }
+}
+
+/* ════════════════════════════════════════
+   ADVOCACY — small cards
+   ════════════════════════════════════════ */
+.adv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.adv-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 28px 28px 26px;
+  transition: border-color .3s var(--ease), background .3s var(--ease), transform .4s var(--ease);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.adv-card:hover {
+  background: var(--surface-2);
+  border-color: var(--line-3);
+}
+.adv-card .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--surface-3);
+  border: 1px solid var(--line-2);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-3);
+  margin-bottom: 22px;
+}
+.adv-card h4 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+.adv-card p {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+
+@media (max-width: 920px) {
+  .adv-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .adv-card { padding: 22px 22px 20px; }
+  .adv-card h4 { font-size: 19px; }
+  .adv-card p  { font-size: 13.5px; }
+}
+
+/* ════════════════════════════════════════
+   INTERESTS / TOOLS — pill cloud
+   ════════════════════════════════════════ */
+.combo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.cluster {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 32px 32px 30px;
+}
+.cluster h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 22px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cluster h4::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-3);
+}
+.cluster .interest-pills .ip {
+  background: var(--bg-2);
+}
+@media (max-width: 768px) {
+  .combo-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .cluster { padding: 24px 22px 22px; }
+}
+
+/* ════════════════════════════════════════
+   HONORS
+   ════════════════════════════════════════ */
+.honors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.honor {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.honor:hover { background: var(--surface-2); border-color: var(--line-3); }
+.honor .number {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent-3);
+  letter-spacing: 0.04em;
+  width: 28px;
+}
+.honor .label {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+.honor.full { grid-column: 1 / -1; }
+
+@media (max-width: 768px) {
+  .honors-grid { grid-template-columns: 1fr; }
+  .honor.full { grid-column: auto; }
+}
+@media (max-width: 600px) {
+  .honor { padding: 18px 20px; gap: 14px; }
+  .honor .label { font-size: 15px; }
+}
+
+/* ════════════════════════════════════════
+   CERTIFICATIONS
+   ════════════════════════════════════════ */
+.cert-stack {
+  display: grid;
+  gap: 12px;
+}
+.cert {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  padding: 26px 30px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.cert:hover { background: var(--surface-2); border-color: var(--line-3); }
+.cert .name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+.cert .issuer {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+}
+.cert .desc {
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 640px;
+}
+.cert .badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  background: var(--surface-3);
+  border: 1px solid var(--line-2);
+  padding: 5px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .cert { grid-template-columns: 1fr; padding: 22px 20px; gap: 14px; }
+  .cert .name { font-size: 17px; }
+  .cert .desc { font-size: 13.5px; }
+  .cert .badge { align-self: flex-start; }
+}
+
+/* ════════════════════════════════════════
+   CURRENT — pinned ticker block
+   ════════════════════════════════════════ */
+.current-block {
+  background: linear-gradient(140deg, var(--surface) 0%, var(--bg-2) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 48px 52px;
+  position: relative;
+  overflow: hidden;
+}
+.current-block::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,165,116,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.current-block .live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(74, 222, 128, .08);
+  border: 1px solid rgba(74, 222, 128, .25);
+  border-radius: var(--r-pill);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #4ade80;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+.current-block .live-tag::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 10px rgba(74,222,128,.7);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.current-block p {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.4;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  position: relative; z-index: 1;
+  max-width: 760px;
+}
+@media (max-width: 600px) {
+  .current-block { padding: 28px 22px; }
+  .current-block p { font-size: 19px; }
+}
+
+/* ════════════════════════════════════════
+   CONTACT
+   ════════════════════════════════════════ */
+.contact-block {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: clamp(48px, 8vw, 88px) clamp(32px, 6vw, 72px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.contact-block::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(circle at 50% 0%, rgba(212,165,116,.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.contact-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-pill);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  position: relative; z-index: 1;
+}
+.contact-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-3);
+}
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--ink);
+  max-width: 820px;
+  margin: 0 auto 24px;
+  position: relative; z-index: 1;
+}
+.contact-headline em { color: var(--ink-3); font-style: italic; font-weight: 400; }
+.contact-sub {
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-3);
+  max-width: 540px;
+  margin: 0 auto 36px;
+  position: relative; z-index: 1;
+}
+.contact-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.contact-foot {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+  position: relative; z-index: 1;
+}
+.contact-foot a {
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line-3);
+  padding-bottom: 1px;
+  transition: color .3s var(--ease), border-color .3s var(--ease);
+}
+.contact-foot a:hover { color: var(--ink); border-color: var(--accent-3); }
+.contact-foot .sep { color: var(--ink-4); border: none; }
+
+@media (max-width: 600px) {
+  .contact-block { padding: 44px 22px; }
+  .contact-btn { padding: 16px 26px; font-size: 12px; }
+  .contact-headline { font-size: 30px; }
+  .contact-sub { font-size: 15px; margin-bottom: 28px; }
+  .contact-actions { width: 100%; flex-direction: column; gap: 10px; }
+  .contact-actions .btn { width: 100%; justify-content: center; }
+  .contact-foot { flex-direction: column; gap: 10px; align-items: center; font-size: 11.5px; }
+  .contact-foot .sep { display: none; }
+}
+
+/* ════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 36px var(--gutter);
+  margin-top: 80px;
+}
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-4);
+  letter-spacing: 0.04em;
+}
+.footer-inner .right {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .footer { padding: 28px 22px; margin-top: 48px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 8px; font-size: 10.5px; }
+  .footer-inner .right { gap: 10px; }
+}
+
+/* ════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-1 { transition-delay: .08s; }
+.reveal.delay-2 { transition-delay: .16s; }
+.reveal.delay-3 { transition-delay: .24s; }
+.reveal.delay-4 { transition-delay: .32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .paper-card { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ════════════════════════════════════════
+   PRINT
+   ════════════════════════════════════════ */
+@media print {
+  :root {
+    --bg:#fff; --bg-2:#fff; --surface:#fff; --surface-2:#f7f7f7; --surface-3:#eee;
+    --ink:#000; --ink-2:#222; --ink-3:#444; --ink-4:#666;
+    --line:#ddd; --line-2:#ccc; --line-3:#aaa;
+    --accent-3:#000;
+  }
+  html, body { background:#fff !important; color:#000 !important; }
+  body::before, body::after { display:none !important; }
+  .nav, .mobile-drawer, .hero-bg, .hero-scroll, .reveal { display: revert; opacity:1; transform:none; }
+  .nav { position:static !important; }
+  .paper-card { display: none; }
+  .hero { min-height:auto; padding: 24mm 0 0; }
+  .section { padding: 16mm 0; }
+  .btn-primary { background:#000 !important; color:#fff !important; }
+  a { color:#000; text-decoration:underline; }
+  @page { margin: 14mm 14mm; size: A4; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<header class="nav" role="banner">
+  <div class="nav-inner" id="navInner">
+    <a class="nav-brand" href="#home" aria-label="Nupur Kumar — Home">
+      <span class="dot"></span>
+      <span>Nupur Kumar</span>
+    </a>
+    <div class="nav-links" role="navigation" aria-label="Primary">
+      <a href="#papers" data-nav="papers">Work</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#education" data-nav="education">Education</a>
+      <a href="#experience" data-nav="experience">Experience</a>
+      <a href="#writing" data-nav="writing">Writing</a>
+      <a href="#advocacy" data-nav="advocacy">Advocacy</a>
+      <a href="#honors" data-nav="honors">Honors</a>
+    </div>
+    <a class="nav-cta" href="#contact">Contact <span class="arr">→</span></a>
+    <button class="nav-mobile-toggle" type="button" aria-label="Open menu" id="navMobileToggle">
+      Menu
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#advocacy">Advocacy</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#honors">Honors</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="home">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="paper-card pc-1" data-depth="0.6">
+        <span class="pc-tag">2025 · Article</span>
+        <span class="pc-body">Beyond the Warrant — Privacy in the Age of Digital Searches</span>
+      </div>
+      <div class="paper-card pc-2 cream" data-depth="1.2">
+        <span class="pc-tag">Mock Trial</span>
+        <span class="pc-body">Direct examination · cross · objections · case theory</span>
+      </div>
+      <div class="paper-card pc-3 dark" data-depth="0.4">
+        <span class="pc-tag">Certificate</span>
+        <span class="pc-body">Advanced Paralegal · Center for Legal Studies</span>
+      </div>
+      <div class="paper-card pc-4" data-depth="0.8">
+        <span class="pc-tag">2026 · Article</span>
+        <span class="pc-body">Echoes After Death — The Right to Be Forgotten</span>
+      </div>
+      <div class="paper-card pc-5 warn" data-depth="1.6">
+        <span class="pc-tag">GPA</span>
+        <span class="pc-body">4.00 — Triple major across three departments</span>
+      </div>
+      <div class="paper-card pc-6 dark" data-depth="0.2">
+        <span class="pc-tag">Honor</span>
+        <span class="pc-body">Thurgood Marshall Scholarship · 2024</span>
+      </div>
+    </div>
+
+    <div class="hero-fg">
+      <div class="hero-meta reveal">
+        <span class="live">Available · Spring 2026</span>
+        <span class="sep">·</span>
+        <span>Orange, California</span>
+        <span class="sep">·</span>
+        <span>Chapman '28</span>
+      </div>
+
+      <h1 class="hero-title reveal delay-1">
+        Nupur<br>
+        <em>Kumar.</em>
+      </h1>
+
+      <div class="hero-tagline reveal delay-2">
+        <span class="pill"><span class="d"></span>Research</span>
+        <span class="pill"><span class="d"></span>Advocacy</span>
+        <span class="pill"><span class="d"></span>Systems</span>
+        <span class="pill"><span class="d"></span>Writing</span>
+      </div>
+
+      <p class="hero-intro reveal delay-3">
+        Chapman University student exploring law, technology, public systems, and advocacy through research, competition, professional work, and interdisciplinary projects.
+      </p>
+
+      <div class="hero-actions reveal delay-4">
+        <a class="btn btn-primary" href="#writing">Read selected writing <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#about">About me</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="arrow"></span>
+    </div>
+  </section>
+
+  <!-- ─── PAPERS — scroll-rotate showcase ─── -->
+  <section class="papers" id="papers" aria-label="Selected work">
+    <div class="papers-head">
+      <span class="eyebrow"><span class="num">▲</span>Selected Work</span>
+      <h2>Six papers, <em>one body of work.</em></h2>
+      <p>Scroll through. Each one rotates as it passes — articles, certifications, honors, and the studies that hold them together.</p>
+    </div>
+
+    <div class="paper-stack" id="paperStack">
+      <article class="paper-3d cream" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Article · Law Review</span>
+          <span class="p-num">01 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Beyond the Warrant: <em>Protecting Privacy in the Age of Digital Searches.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">An examination of Fourth Amendment protections in the digital era.</p>
+          <span class="p-stamp">2025</span>
+        </div>
+      </article>
+
+      <article class="paper-3d dark" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Certification · BARBRI</span>
+          <span class="p-num">02 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Advanced Paralegal Certificate <em>— Center for Legal Studies.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">Immigration · Constitutional · Criminal Procedure · Family Law · Legal Research.</p>
+          <span class="p-stamp">2024 → 2025</span>
+        </div>
+      </article>
+
+      <article class="paper-3d cream" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Article · Law Review</span>
+          <span class="p-num">03 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Echoes After Death: <em>The Moral and Legal Boundaries of the Right to Be Forgotten.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">Posthumous data rights, digital legacy control, privacy after death.</p>
+          <span class="p-stamp">2026</span>
+        </div>
+      </article>
+
+      <article class="paper-3d warn" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Competition · Mock Trial</span>
+          <span class="p-num">04 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Blue Ribbon Awards Nominee <em>— Riverside County Mock Trial.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">Direct &amp; cross examination · objections · case theory · trial advocacy.</p>
+          <span class="p-stamp">April 2024</span>
+        </div>
+      </article>
+
+      <article class="paper-3d amber" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Honor · Scholarship</span>
+          <span class="p-num">05 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Thurgood Marshall Scholarship <em>for leadership &amp; merit.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">Awarded for leadership, financial need, and academic achievement.</p>
+          <span class="p-stamp">August 2024</span>
+        </div>
+      </article>
+
+      <article class="paper-3d dark" data-paper>
+        <div class="p-top">
+          <span class="p-tag">Studies · Chapman</span>
+          <span class="p-num">06 / 06</span>
+        </div>
+        <div class="p-mid">
+          <h3 class="p-title">Triple Major <em>— Political Science · Sociology · Legal Studies.</em></h3>
+        </div>
+        <div class="p-bot">
+          <p class="p-meta">Class of 2028 · 4.00 GPA · Wilkinson College of Arts, Humanities and Social Sciences.</p>
+          <span class="p-stamp">'24 → '28</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="section" id="about">
+    <span class="eyebrow reveal"><span class="num">01</span>About</span>
+    <div class="about-grid">
+      <div class="left reveal delay-1">
+        <h2 class="section-title">A student at <em>the seam</em> between law, tech, &amp; public life.</h2>
+        <p>I'm a student at Chapman University pursuing triple majors in Political Science, Sociology, and Legal Studies. My interests sit at the intersection of law, technology, advocacy, institutional systems, and public discourse. Through legal writing, mock trial, debate, and professional legal experience, I explore how communication, governance, and emerging technologies shape modern legal and social structures.</p>
+        <p>My work spans constitutional law, digital privacy, posthumous data rights, women's rights, and interdisciplinary legal research, alongside interests in systems thinking, public-facing communication, and creative problem-solving. Beyond academics, I'm deeply interested in the role of advocacy and structured argumentation — whether in courtroom simulations, legal analysis, or collaborative projects.</p>
+        <p>Currently, I serve as a Legal Assistant at Parikh &amp; Prasad PC and contribute as a writer for Chapman University's Undergraduate Law Review. I am also actively involved in Mock Trial, Speech &amp; Debate, and Kappa Alpha Pi Pre-Law Fraternity.</p>
+      </div>
+      <div class="right reveal delay-2">
+        <div class="about-pull">
+          <span class="quote-mark">"</span>
+          <div class="pull-body">
+            The questions I care about don't sit neatly inside any one discipline — <em>so I read three of them at once.</em>
+          </div>
+          <span class="pull-cite">— working note</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EDUCATION ─── -->
+  <section class="section" id="education">
+    <span class="eyebrow reveal"><span class="num">02</span>Education</span>
+    <h2 class="section-title reveal delay-1">Three majors, <em>one through-line.</em></h2>
+    <p class="section-lead reveal delay-2">Wilkinson College of Arts, Humanities and Social Sciences — three Bachelor of Arts degrees pursued in parallel.</p>
+
+    <div class="edu-card reveal delay-3">
+      <div>
+        <div class="edu-school">Chapman University</div>
+        <div class="edu-loc"><span>Orange, California</span><span class="dot"></span><span>Wilkinson College</span></div>
+
+        <div class="edu-degrees">
+          <div class="deg"><span class="badge">B.A.</span><span>Political Science</span></div>
+          <div class="deg"><span class="badge">B.A.</span><span>Sociology</span></div>
+          <div class="deg"><span class="badge">B.A.</span><span>Legal Studies</span></div>
+        </div>
+
+        <div class="edu-meta">
+          <div class="item">
+            <span class="k">Class of</span>
+            <span class="v">2028</span>
+          </div>
+          <div class="item gpa">
+            <span class="k">GPA</span>
+            <span class="v">4.00</span>
+          </div>
+          <div class="item">
+            <span class="k">College</span>
+            <span class="v" style="font-size:15px; font-family:var(--sans); font-weight:500;">Wilkinson</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="edu-side">
+        <h4>Academic Interests</h4>
+        <div class="interest-pills">
+          <span class="ip">Constitutional Law</span>
+          <span class="ip">Digital Privacy</span>
+          <span class="ip">Criminal Procedure</span>
+          <span class="ip">Legal Theory</span>
+          <span class="ip">Technology &amp; Governance</span>
+          <span class="ip">Public Systems</span>
+          <span class="ip">Advocacy &amp; Oral Argumentation</span>
+          <span class="ip">Women's Rights</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section class="section" id="experience">
+    <span class="eyebrow reveal"><span class="num">03</span>Experience</span>
+    <h2 class="section-title reveal delay-1">Inside the work.</h2>
+    <p class="section-lead reveal delay-2">Three roles — one in litigation, one in institutional counsel, one in scholarly writing.</p>
+
+    <div class="exp-stack">
+      <article class="exp-card reveal" data-tilt>
+        <div class="exp-period">
+          <span class="yr">May 2025 → Present</span>
+          <span class="now">Now</span>
+        </div>
+        <div>
+          <h3 class="exp-role">Legal Assistant</h3>
+          <div class="exp-org">Parikh &amp; Prasad PC · Chino Hills, CA</div>
+          <p class="exp-desc">Support immigration-focused legal operations through case preparation, documentation workflows, exhibit organization, deadline tracking, and client communication. Assist attorneys with legal documentation, case materials, and administrative coordination while working across evolving immigration matters and procedural processes.</p>
+        </div>
+      </article>
+
+      <article class="exp-card reveal delay-1" data-tilt>
+        <div class="exp-period">
+          <span class="yr">Nov 2024 → May 2025</span>
+        </div>
+        <div>
+          <h3 class="exp-role">Administrative Assistant</h3>
+          <div class="exp-org">Office of Legal Affairs, Chapman University · Orange, CA</div>
+          <p class="exp-desc">Supported institutional legal operations through contract review assistance, correspondence management, document organization, and administrative coordination. Helped streamline communication workflows while maintaining accuracy and professionalism in legal documentation processes.</p>
+        </div>
+      </article>
+
+      <article class="exp-card reveal delay-2" data-tilt>
+        <div class="exp-period">
+          <span class="yr">Nov 2024 → Present</span>
+          <span class="now">Now</span>
+        </div>
+        <div>
+          <h3 class="exp-role">Writer</h3>
+          <div class="exp-org">Undergraduate Law Review, Chapman University</div>
+          <p class="exp-desc">Research and author scholarly writing focused on constitutional protections, digital privacy, technology, and evolving legal frameworks.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── WRITING ─── -->
+  <section class="section" id="writing">
+    <span class="eyebrow reveal"><span class="num">04</span>Selected Writing</span>
+    <h2 class="section-title reveal delay-1">Two articles, <em>one running question.</em></h2>
+    <p class="section-lead reveal delay-2">Both pieces circle the same question from different angles — what privacy means once the things being searched are no longer physical, and what the law owes to a person who is no longer alive to assert it.</p>
+
+    <div class="writing-grid">
+      <article class="write-card reveal" data-tilt>
+        <span class="yr-badge">2025 · Article 01</span>
+        <h3>Beyond the Warrant: <em>Protecting Privacy in the Age of Digital Searches</em></h3>
+        <p>An examination of Fourth Amendment protections in the digital era, focusing on how technological developments challenge traditional understandings of privacy, surveillance, and constitutional safeguards.</p>
+        <div class="meta">
+          <span class="pub">Chapman Undergraduate Law Review</span>
+          <span>Scholarly</span>
+        </div>
+      </article>
+
+      <article class="write-card reveal delay-1" data-tilt>
+        <span class="yr-badge">2026 · Article 02</span>
+        <h3>Echoes After Death: <em>The Moral and Legal Boundaries of the Right to Be Forgotten</em></h3>
+        <p>A research article exploring posthumous data rights, digital legacy control, and the ethical and legal questions surrounding privacy after death.</p>
+        <div class="meta">
+          <span class="pub">Chapman Undergraduate Law Review</span>
+          <span>Scholarly</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── ADVOCACY ─── -->
+  <section class="section" id="advocacy">
+    <span class="eyebrow reveal"><span class="num">05</span>Advocacy &amp; Leadership</span>
+    <h2 class="section-title reveal delay-1">Argument as <em>discipline.</em></h2>
+    <p class="section-lead reveal delay-2">Three communities at Chapman — each one a different way of practicing how to think on your feet.</p>
+
+    <div class="adv-grid">
+      <article class="adv-card reveal" data-tilt>
+        <div class="icon">⚖</div>
+        <h4>Mock Trial</h4>
+        <p>Active participant in courtroom simulations involving direct examination, cross-examination, objections, witness preparation, case theory development, and trial advocacy.</p>
+      </article>
+      <article class="adv-card reveal delay-1" data-tilt>
+        <div class="icon">∿</div>
+        <h4>Speech &amp; Debate</h4>
+        <p>Engage in structured argumentation, public speaking, and analytical communication through competitive speech and debate activities.</p>
+      </article>
+      <article class="adv-card reveal delay-2" data-tilt>
+        <div class="icon">KAπ</div>
+        <h4>Kappa Alpha Pi</h4>
+        <p>Participate in professional development, networking, leadership, and pre-law community engagement through Chapman's Pre-Law Fraternity.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── INTERESTS / TOOLS ─── -->
+  <section class="section" id="interests">
+    <span class="eyebrow reveal"><span class="num">06</span>Research &amp; Tools</span>
+    <h2 class="section-title reveal delay-1">What I'm reading <em>&amp; what I'm using.</em></h2>
+    <p class="section-lead reveal delay-2">Research interests on the left; the platforms that show up in real legal workflow on the right.</p>
+
+    <div class="combo-grid">
+      <div class="cluster reveal delay-3">
+        <h4>Research Interests</h4>
+        <div class="interest-pills">
+          <span class="ip">Constitutional Law</span>
+          <span class="ip">Criminal Procedure</span>
+          <span class="ip">Digital Privacy</span>
+          <span class="ip">Technology &amp; Governance</span>
+          <span class="ip">Legal Theory</span>
+          <span class="ip">Data Rights</span>
+          <span class="ip">Institutional Systems</span>
+          <span class="ip">Public Discourse</span>
+          <span class="ip">Advocacy &amp; Persuasion</span>
+          <span class="ip">Emerging Legal Technologies</span>
+          <span class="ip">Women's Rights</span>
+        </div>
+      </div>
+      <div class="cluster reveal delay-4">
+        <h4>Tools &amp; Platforms</h4>
+        <div class="interest-pills">
+          <span class="ip">Westlaw</span>
+          <span class="ip">Microsoft Office</span>
+          <span class="ip">Google Workspace</span>
+          <span class="ip">Filevine</span>
+          <span class="ip">MyCase</span>
+          <span class="ip">Docketwise</span>
+          <span class="ip">Adobe</span>
+          <span class="ip">Canva</span>
+          <span class="ip">Calendly</span>
+          <span class="ip">Bluebook</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HONORS ─── -->
+  <section class="section" id="honors">
+    <span class="eyebrow reveal"><span class="num">07</span>Honors &amp; Recognition</span>
+    <h2 class="section-title reveal delay-1">A short list.</h2>
+
+    <div class="honors-grid" style="margin-top:32px">
+      <div class="honor reveal"><span class="number">01</span><span class="label">Provost's Scholarship</span></div>
+      <div class="honor reveal delay-1"><span class="number">02</span><span class="label">Thurgood Marshall Scholarship</span></div>
+      <div class="honor reveal delay-2"><span class="number">03</span><span class="label">Provost's List</span></div>
+      <div class="honor reveal delay-3"><span class="number">04</span><span class="label">Dean's List</span></div>
+      <div class="honor full reveal delay-4"><span class="number">05</span><span class="label">Blue Ribbon Awards Nominee — Riverside County Mock Trial Competition</span></div>
+    </div>
+  </section>
+
+  <!-- ─── CERTIFICATIONS ─── -->
+  <section class="section" id="certifications">
+    <span class="eyebrow reveal"><span class="num">08</span>Certifications</span>
+    <h2 class="section-title reveal delay-1">Paralegal training.</h2>
+    <p class="section-lead reveal delay-2">Two programs through Barbri's Center for Legal Studies — foundations followed by an advanced specialization.</p>
+
+    <div class="cert-stack">
+      <div class="cert reveal">
+        <div>
+          <div class="name">Paralegal Certificate Course</div>
+          <div class="issuer">Center for Legal Studies by BARBRI</div>
+          <div class="desc">Focused on legal writing, litigation support, legal research, procedural law, and legal documentation.</div>
+        </div>
+        <span class="badge">Completed</span>
+      </div>
+
+      <div class="cert reveal delay-1">
+        <div>
+          <div class="name">Advanced Paralegal Certificate Course</div>
+          <div class="issuer">Center for Legal Studies by BARBRI</div>
+          <div class="desc">Advanced coursework in Immigration Law, Constitutional Law, Criminal Procedure, Family Law, Legal Research, Civil Liberties, and Criminal Law.</div>
+        </div>
+        <span class="badge">Completed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CURRENT ─── -->
+  <section class="section" id="current">
+    <span class="eyebrow reveal"><span class="num">09</span>Current</span>
+    <div class="current-block reveal delay-1">
+      <span class="live-tag">Reading now</span>
+      <p>Currently interested in questions surrounding digital privacy, constitutional protections, women's rights, institutional systems, legal technology, public discourse, posthumous data rights, and the evolving relationship between governance and technology.</p>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="section" id="contact">
+    <div class="contact-block reveal">
+      <span class="contact-eyebrow">Get in touch</span>
+      <h2 class="contact-headline">If anything here resonated, <em>email is the best way in.</em></h2>
+      <p class="contact-sub">Open to research collaborations, internships, and conversations about the law, advocacy, and the writing.</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:nupur@chapman.edu?subject=Hello%20Nupur">Email Nupur <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/nupur-kumar31" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+      <div class="contact-foot">
+        <a href="mailto:nupur@chapman.edu">nupur@chapman.edu</a>
+        <span class="sep">·</span>
+        <a href="tel:+19516346412">(951) 634-6412</a>
+        <span class="sep">·</span>
+        <a href="https://www.linkedin.com/in/nupur-kumar31" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 Nupur Kumar</div>
+    <div class="right">
+      <span>Set in Space Grotesk · Inter</span>
+      <span>·</span>
+      <span>Built with care</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Reveal on scroll ──────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
+  }
+
+  // ── Active nav link tracking ──────────────────────
+  const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
+  const sections = ['papers','about','education','experience','writing','advocacy','interests','honors']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  function updateActiveNav() {
+    const y = window.scrollY + window.innerHeight * 0.35;
+    let activeId = null;
+    for (const s of sections) {
+      const top = s.offsetTop;
+      const bot = top + s.offsetHeight;
+      if (y >= top && y < bot) { activeId = s.id; break; }
+    }
+    navLinks.forEach(a => a.classList.toggle('active', a.dataset.nav === activeId));
+  }
+
+  // ── Hero floating cards: scroll parallax + mouse tilt ──
+  const heroBg = document.querySelector('.hero-bg');
+  const heroSection = document.getElementById('home');
+  const paperCards = document.querySelectorAll('.paper-card');
+  const baseTransforms = new Map();
+  paperCards.forEach(c => baseTransforms.set(c, getComputedStyle(c).transform));
+
+  let mouseX = 0, mouseY = 0, scrollY = window.scrollY;
+  let targetMouseX = 0, targetMouseY = 0;
+
+  function onMouseMove(e) {
+    if (!heroSection) return;
+    const rect = heroSection.getBoundingClientRect();
+    if (rect.bottom < 0) return;
+    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;  // -1..1
+    targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }
+  function onScroll() { scrollY = window.scrollY; }
+
+  // ── Mouse tilt on data-tilt cards ─────────────────
+  const tiltCards = document.querySelectorAll('[data-tilt]');
+  tiltCards.forEach(card => {
+    let raf = 0;
+    function reset() {
+      cancelAnimationFrame(raf);
+      card.style.transform = '';
+    }
+    function move(e) {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const rx = (-y * 4).toFixed(2);
+      const ry = (x * 5).toFixed(2);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(2px)`;
+      });
+    }
+    if (!reduceMotion) {
+      card.addEventListener('mousemove', move);
+      card.addEventListener('mouseleave', reset);
+    }
+  });
+
+  // ── 3D scroll-rotating papers ─────────────────────
+  // Ported "feel" from FlyingPosters: as a paper passes the
+  // viewport center, it rotates around its X axis from
+  // tilted-toward-viewer (below) → flat (center) → tilted-
+  // away (above), with qinticInOut easing.
+  //
+  // Smoothed: each card has lerped state, called every RAF
+  // frame so motion eases instead of snapping to scrollY.
+  const papers = document.querySelectorAll('[data-paper]');
+  function qinticInOut(t) {
+    return t < 0.5
+      ? 16 * Math.pow(t, 5)
+      : -0.5 * Math.abs(Math.pow(2 * t - 2, 5)) + 1;
+  }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  // Per-paper smoothed state
+  const paperState = [];
+  papers.forEach((p) => {
+    paperState.push({
+      el: p,
+      rotX: 0, rotZ: 0, tz: 0, sc: 1, op: 1, blur: 0,
+      tRotX: 0, tRotZ: 0, tTz: 0, tSc: 1, tOp: 1, tBlur: 0,
+      visible: false
+    });
+  });
+
+  // Tunables — wider band = more gradual rotation, smaller =
+  // sharper passes. Lerp factor controls easing strength.
+  const isCoarse = matchMedia('(pointer: coarse)').matches;
+  const isNarrow = matchMedia('(max-width: 768px)').matches;
+  const ROT_BAND   = isNarrow ? 0.85 : 0.75;   // fraction of vh
+  const ROT_AMT    = isNarrow ? 42   : 52;     // peak degrees
+  const TZ_AMT     = isNarrow ? 120  : 200;    // depth push
+  const SC_AMT     = isNarrow ? 0.05 : 0.07;
+  const OP_AMT     = 0.55;
+  const BLUR_AMT   = isCoarse ? 0    : 5;      // skip blur on touch (perf)
+  const LERP       = 0.16;                     // 0..1 (higher = snappier)
+
+  function computeTargets() {
+    if (!paperState.length || reduceMotion) return;
+    const vh = window.innerHeight;
+    const vCenter = vh / 2;
+    const band = vh * ROT_BAND;
+    for (let i = 0; i < paperState.length; i++) {
+      const s = paperState[i];
+      const r = s.el.getBoundingClientRect();
+      // Skip cards far outside viewport for perf — collapse target to flat
+      if (r.bottom < -vh * 0.5 || r.top > vh * 1.5) {
+        s.tRotX = 0; s.tRotZ = 0; s.tTz = 0; s.tSc = 1; s.tOp = 1; s.tBlur = 0;
+        s.visible = false;
+        continue;
+      }
+      s.visible = true;
+      const cardCenter = r.top + r.height / 2;
+      // progress: -1 at viewport top, 0 center, +1 bottom
+      const raw = clamp((cardCenter - vCenter) / band, -1.2, 1.2);
+      const sign = Math.sign(raw);
+      const mag = Math.min(Math.abs(raw), 1);
+      const eased = qinticInOut(mag);
+      s.tRotX = -sign * eased * ROT_AMT;
+      s.tRotZ =  sign * eased * 1.2;
+      s.tTz   = -eased * TZ_AMT;
+      s.tSc   = 1 - eased * SC_AMT;
+      s.tOp   = 1 - eased * eased * OP_AMT;
+      s.tBlur = BLUR_AMT > 0 && eased > 0.72 ? (eased - 0.72) * BLUR_AMT : 0;
+    }
+  }
+
+  function applyPapers() {
+    if (!paperState.length || reduceMotion) return;
+    for (let i = 0; i < paperState.length; i++) {
+      const s = paperState[i];
+      // lerp each channel toward its target
+      s.rotX += (s.tRotX - s.rotX) * LERP;
+      s.rotZ += (s.tRotZ - s.rotZ) * LERP;
+      s.tz   += (s.tTz   - s.tz)   * LERP;
+      s.sc   += (s.tSc   - s.sc)   * LERP;
+      s.op   += (s.tOp   - s.op)   * LERP;
+      s.blur += (s.tBlur - s.blur) * LERP;
+      // translate3d forces GPU compositing
+      s.el.style.transform =
+        'translate3d(0,0,' + s.tz.toFixed(2) + 'px) ' +
+        'rotateX(' + s.rotX.toFixed(2) + 'deg) ' +
+        'rotateZ(' + s.rotZ.toFixed(2) + 'deg) ' +
+        'scale(' + s.sc.toFixed(4) + ')';
+      s.el.style.opacity = s.op.toFixed(3);
+      s.el.style.filter = s.blur > 0.05 ? ('blur(' + s.blur.toFixed(2) + 'px)') : '';
+    }
+  }
+
+  // ── Animation loop ────────────────────────────────
+  let lastY = -1;
+  function loop() {
+    // smooth mouse
+    mouseX += (targetMouseX - mouseX) * 0.06;
+    mouseY += (targetMouseY - mouseY) * 0.06;
+
+    if (heroBg && !reduceMotion) {
+      paperCards.forEach(card => {
+        const depth = parseFloat(card.dataset.depth || '0.6');
+        const base = baseTransforms.get(card) || '';
+        const py = scrollY * depth * 0.18;       // parallax shift
+        const tx = mouseX * depth * 14;
+        const ty = mouseY * depth * 10;
+        card.style.transform = `${base} translate3d(${tx.toFixed(1)}px, ${(-py + ty).toFixed(1)}px, 0)`;
+      });
+    }
+
+    if (scrollY !== lastY) {
+      lastY = scrollY;
+      updateActiveNav();
+      computeTargets();
+    }
+    // Always apply lerp — even when scroll is static, papers
+    // ease the last few percent toward their target. Cheap.
+    applyPapers();
+
+    requestAnimationFrame(loop);
+  }
+
+  if (!reduceMotion) {
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', computeTargets, { passive: true });
+    // Prime: compute targets, then snap the visible state to
+    // them so the first frame doesn't ease in from zero.
+    computeTargets();
+    paperState.forEach(s => {
+      s.rotX = s.tRotX; s.rotZ = s.tRotZ; s.tz = s.tTz;
+      s.sc   = s.tSc;   s.op   = s.tOp;   s.blur = s.tBlur;
+    });
+    applyPapers();
+    loop();
+  } else {
+    updateActiveNav();
+    window.addEventListener('scroll', () => updateActiveNav(), { passive: true });
+  }
+
+  // ── Mobile drawer ─────────────────────────────────
+  const toggle = document.getElementById('navMobileToggle');
+  const drawer = document.getElementById('mobileDrawer');
+  if (toggle && drawer) {
+    toggle.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.body.classList.remove('menu-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  // ── Smooth anchor scroll (Safari fallback) ────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
