@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Stack Keyboard · Anshul Raman</title>
+<link rel="preconnect" href="https://cdn.simpleicons.org">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#000; }
+  body {
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:48px 18px;
+    font-family:'Inter', system-ui, sans-serif;
+    color:#fff; overflow-x:auto;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(1100px 500px at 50% 30%, rgba(74,240,74,.10), transparent 60%),
+      radial-gradient(1300px 700px at 50% 100%, rgba(74,240,74,.04), transparent 60%);
+  }
+  body::after {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:.04; mix-blend-mode:overlay;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    z-index:2; position:relative;
+    width:min(1200px, 100%);
+    display:flex; justify-content:space-between; align-items:center;
+    padding:0 16px; margin-bottom:32px;
+    flex-wrap:wrap; gap:16px;
+  }
+  .title {
+    font-family:'Inter', sans-serif;
+    font-weight:800; font-size:clamp(20px, 2.4vw, 32px);
+    letter-spacing:-.02em;
+  }
+  .title .gr { color:#0f0; }
+  .title-sub { display:block; margin-top:4px; font-family:'Share Tech Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); font-weight:400; }
+
+  .lcd {
+    background:#0d1c10;
+    border:1px solid rgba(74,240,74,.12);
+    border-radius:6px;
+    padding:8px 16px;
+    font-family:'Share Tech Mono', monospace;
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:#4af04a; text-shadow:0 0 6px rgba(74,240,74,.6);
+    display:flex; align-items:center; gap:10px;
+    box-shadow: inset 0 0 14px rgba(0,0,0,.7), inset 0 1px 0 rgba(74,240,74,.08);
+    position:relative; overflow:hidden;
+  }
+  .lcd::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.18) 2px 3px);
+  }
+  .lcd .blink { width:8px; height:12px; background:#4af04a; box-shadow:0 0 6px #4af04a; animation:blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+
+  /* ── DECK ── */
+  .deck {
+    position:relative; z-index:5;
+    width:min(1200px, 100%);
+    background:linear-gradient(180deg, #1c1c1c 0%, #0a0a0a 100%);
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:18px;
+    padding:32px 28px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.10),
+      inset 0 -2px 0 rgba(0,0,0,.6),
+      0 6px 0 rgba(0,0,0,.55),
+      0 30px 60px -10px rgba(0,0,0,.65),
+      0 0 100px rgba(74,240,74,.06);
+  }
+  .deck::before, .deck::after,
+  .deck .scr-bl, .deck .scr-br {
+    content:''; position:absolute; width:7px; height:7px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #888 0%, #2a2a2a 60%, #0a0a0a 100%);
+    box-shadow:inset 0 1px 1px rgba(255,255,255,.18), 0 1px 2px rgba(0,0,0,.6);
+  }
+  .deck::before { top:8px; left:8px; }
+  .deck::after { top:8px; right:8px; }
+  .deck .scr-bl { bottom:8px; left:8px; }
+  .deck .scr-br { bottom:8px; right:8px; }
+
+  /* row group: category label + keys */
+  .row-group { margin-bottom:18px; }
+  .row-group:last-child { margin-bottom:0; }
+  .row-label {
+    font-family:'Share Tech Mono', monospace;
+    font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(255,255,255,.32);
+    margin-bottom:10px; padding-left:6px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .row-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg, rgba(255,255,255,.12), transparent); }
+
+  .row {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(78px, 1fr));
+    gap:10px;
+  }
+
+  /* ──── KEYCAP ──── */
+  .key {
+    aspect-ratio:1 / 1;
+    border-radius:10px;
+    background:linear-gradient(180deg, #2c2c2c 0%, #1a1a1a 60%, #0a0a0a 100%);
+    position:relative;
+    cursor:default;
+    display:flex; align-items:center; justify-content:center;
+    overflow:visible;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    isolation:isolate;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      inset 0 -3px 0 rgba(0,0,0,.45),
+      0 4px 0 #050505,
+      0 6px 10px rgba(0,0,0,.55);
+  }
+  /* top reflection sliver */
+  .key::before {
+    content:''; position:absolute;
+    left:8px; right:8px; top:5px; height:6px;
+    background:rgba(255,255,255,.06);
+    border-radius:5px;
+    filter:blur(2px);
+    pointer-events:none;
+    z-index:1;
+  }
+  /* hover halo */
+  .key::after {
+    content:''; position:absolute;
+    inset:-50%;
+    border-radius:50%;
+    pointer-events:none; z-index:-1;
+    background:radial-gradient(50% 50%, rgba(255,255,255,.18), rgba(255,255,255,0) 70%);
+    opacity:0; transform:scale(.6);
+    transition:opacity .4s, transform .55s cubic-bezier(.2,.8,.2,1);
+    filter:blur(14px);
+    mix-blend-mode:plus-lighter;
+  }
+
+  .key img {
+    width:48%; height:48%;
+    object-fit:contain;
+    z-index:2;
+    transition:transform .25s, filter .3s;
+    filter:brightness(1.05) saturate(1.05);
+    user-select:none; pointer-events:none;
+  }
+
+  /* hover state */
+  .key:hover {
+    transform:translateY(-7px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.13),
+      inset 0 -3px 0 rgba(0,0,0,.5),
+      0 11px 0 #050505,
+      0 16px 32px rgba(0,0,0,.7),
+      0 0 28px rgba(255,255,255,.07);
+  }
+  .key:hover::after { opacity:1; transform:scale(1); }
+  .key:hover img {
+    transform:scale(1.08);
+    filter:brightness(1.4) saturate(1.2) drop-shadow(0 0 6px rgba(255,255,255,.25));
+  }
+
+  /* keycap color variants */
+  .key.cream {
+    background:linear-gradient(180deg, #f0e6d0 0%, #c9bfa6 60%, #a89e85 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.6),
+      inset 0 -3px 0 rgba(0,0,0,.18),
+      0 4px 0 #4a4232,
+      0 6px 10px rgba(0,0,0,.45);
+  }
+  .key.cream:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.7),
+      inset 0 -3px 0 rgba(0,0,0,.18),
+      0 11px 0 #4a4232,
+      0 16px 32px rgba(0,0,0,.55),
+      0 0 28px rgba(240,230,208,.15);
+  }
+  .key.white {
+    background:linear-gradient(180deg, #fafaf5 0%, #d6d3c8 60%, #b3b0a3 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.7),
+      inset 0 -3px 0 rgba(0,0,0,.15),
+      0 4px 0 #5a5a55,
+      0 6px 10px rgba(0,0,0,.4);
+  }
+  .key.white:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.8),
+      inset 0 -3px 0 rgba(0,0,0,.15),
+      0 11px 0 #5a5a55,
+      0 16px 32px rgba(0,0,0,.55);
+  }
+  .key.accent {
+    background:linear-gradient(180deg, #5a78f0 0%, #2c4ad0 60%, #1a32a0 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.4),
+      inset 0 -3px 0 rgba(0,0,0,.2),
+      0 4px 0 #0c1858,
+      0 6px 10px rgba(0,0,0,.5);
+  }
+  .key.red-accent {
+    background:linear-gradient(180deg, #f55e50 0%, #c83228 60%, #8a1810 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.4),
+      inset 0 -3px 0 rgba(0,0,0,.25),
+      0 4px 0 #2a0a05,
+      0 6px 10px rgba(0,0,0,.5);
+  }
+  .key.green-accent {
+    background:linear-gradient(180deg, #2ec77b 0%, #18a05c 60%, #0a6638 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.4),
+      inset 0 -3px 0 rgba(0,0,0,.25),
+      0 4px 0 #052a18,
+      0 6px 10px rgba(0,0,0,.5);
+  }
+
+  /* tooltip on hover */
+  .key .tip {
+    position:absolute; bottom:calc(100% + 10px); left:50%;
+    transform:translateX(-50%) translateY(4px);
+    background:#0d0d0d;
+    border:1px solid rgba(74,240,74,.3);
+    color:#4af04a;
+    font-family:'Share Tech Mono', monospace;
+    font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    padding:5px 9px; border-radius:4px; white-space:nowrap;
+    pointer-events:none;
+    opacity:0; transition:opacity .25s, transform .3s;
+    text-shadow:0 0 4px rgba(74,240,74,.6);
+    z-index:10;
+  }
+  .key:hover .tip { opacity:1; transform:translateX(-50%) translateY(0); }
+  .key .tip::after {
+    content:''; position:absolute; top:100%; left:50%;
+    transform:translateX(-50%);
+    border:5px solid transparent;
+    border-top-color:rgba(74,240,74,.3);
+  }
+
+  /* text label fallback for tech without a SimpleIcon */
+  .key .txt {
+    font-family:'Share Tech Mono', monospace;
+    font-size:11px; font-weight:500; letter-spacing:.06em;
+    color:rgba(255,255,255,.85);
+    z-index:2; text-align:center; line-height:1.1;
+    transition:transform .25s, color .3s;
+  }
+  .key.cream .txt, .key.white .txt { color:#1a1612; }
+  .key:hover .txt { transform:scale(1.06); color:#fff; }
+  .key.cream:hover .txt, .key.white:hover .txt { color:#000; }
+
+  /* footer */
+  .foot {
+    margin-top:36px; max-width:740px; text-align:center;
+    color:rgba(255,255,255,.45);
+    font-family:'Share Tech Mono', monospace;
+    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; line-height:2;
+    z-index:2;
+  }
+  .foot .gr { color:#0f0; }
+
+  @media (max-width: 700px) {
+    .deck { padding:22px 16px; }
+    .row { gap:8px; grid-template-columns:repeat(auto-fit, minmax(60px, 1fr)); }
+    .key .tip { display:none; }
+    .header { flex-direction:column; align-items:flex-start; }
+    .title { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="title">
+    <span class="gr">▢▢▢</span> &nbsp; The Stack
+    <span class="title-sub">Anshul Raman · 2026 · hover the keys</span>
+  </div>
+  <div class="lcd">
+    <span class="blink"></span>
+    <span>BUILT WITH · 50 + TOOLS</span>
+  </div>
+</div>
+
+<!-- ── KEYBOARD DECK ── -->
+<div class="deck">
+  <span class="scr-bl"></span>
+  <span class="scr-br"></span>
+
+  <!-- LANGUAGES -->
+  <div class="row-group">
+    <div class="row-label">— Languages</div>
+    <div class="row">
+      <div class="key cream"><img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5"><span class="tip">HTML5</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/css/1572B6" alt="CSS"><span class="tip">CSS</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript"><span class="tip">JavaScript</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript"><span class="tip">TypeScript</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python"><span class="tip">Python</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++"><span class="tip">C++</span></div>
+      <div class="key green-accent"><img src="https://cdn.simpleicons.org/nodedotjs/FFFFFF" alt="Node.js"><span class="tip">Node.js</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/gnubash/4EAA25" alt="Bash"><span class="tip">Bash</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/json/CCCCCC" alt="JSON"><span class="tip">JSON</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/markdown/FFFFFF" alt="Markdown"><span class="tip">Markdown</span></div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORKS / WEB -->
+  <div class="row-group">
+    <div class="row-label">— Frameworks &amp; Web</div>
+    <div class="row">
+      <div class="key"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React"><span class="tip">React</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/nextdotjs/FFFFFF" alt="Next.js"><span class="tip">Next.js</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/flask/FFFFFF" alt="Flask"><span class="tip">Flask</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/vite/646CFF" alt="Vite"><span class="tip">Vite</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/threedotjs/FFFFFF" alt="Three.js"><span class="tip">Three.js</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/pwa/5A0FC8" alt="PWA"><span class="tip">PWA</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind"><span class="tip">Tailwind</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/express/FFFFFF" alt="Express"><span class="tip">Express</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/deno/70FFAF" alt="Deno"><span class="tip">Deno</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/webpack/8DD6F9" alt="Webpack"><span class="tip">Webpack</span></div>
+    </div>
+  </div>
+
+  <!-- CLOUD / DB -->
+  <div class="row-group">
+    <div class="row-label">— Cloud &amp; Data</div>
+    <div class="row">
+      <div class="key"><img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="Vercel"><span class="tip">Vercel</span></div>
+      <div class="key green-accent"><img src="https://cdn.simpleicons.org/supabase/FFFFFF" alt="Supabase"><span class="tip">Supabase</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"><span class="tip">PostgreSQL</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB"><span class="tip">MongoDB</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis"><span class="tip">Redis</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"><span class="tip">Docker</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase"><span class="tip">Firebase</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare"><span class="tip">Cloudflare</span></div>
+      <div class="key red-accent"><img src="https://cdn.simpleicons.org/git/FFFFFF" alt="Git"><span class="tip">Git</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub"><span class="tip">GitHub</span></div>
+    </div>
+  </div>
+
+  <!-- AI / LLMs -->
+  <div class="row-group">
+    <div class="row-label">— AI &amp; LLMs</div>
+    <div class="row">
+      <div class="key"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="Gemini"><span class="tip">Gemini 2.5</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/claude/CC785C" alt="Claude"><span class="tip">Claude</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/openai/FFFFFF" alt="OpenAI"><span class="tip">OpenAI</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/anthropic/CC785C" alt="Anthropic"><span class="tip">Anthropic</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/ollama/FFFFFF" alt="Ollama"><span class="tip">Ollama</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="Hugging Face"><span class="tip">Hugging Face</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/elevenlabs/FFFFFF" alt="ElevenLabs"><span class="tip">ElevenLabs</span></div>
+      <div class="key"><span class="txt">GROQ<br>WHSPR</span><span class="tip">Groq Whisper</span></div>
+      <div class="key"><span class="txt">f-w</span><span class="tip">faster-whisper</span></div>
+      <div class="key"><span class="txt">EDGE<br>TTS</span><span class="tip">edge-tts</span></div>
+    </div>
+  </div>
+
+  <!-- INTEGRATIONS / APIs -->
+  <div class="row-group">
+    <div class="row-label">— Integrations</div>
+    <div class="row">
+      <div class="key cream"><img src="https://cdn.simpleicons.org/google/4285F4" alt="Google"><span class="tip">Google OAuth</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail"><span class="tip">Gmail API</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/googlecalendar/4285F4" alt="Google Calendar"><span class="tip">Google Calendar</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/telegram/26A5E4" alt="Telegram"><span class="tip">Telegram Bot</span></div>
+      <div class="key red-accent"><img src="https://cdn.simpleicons.org/twilio/FFFFFF" alt="Twilio"><span class="tip">Twilio</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord"><span class="tip">Discord</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/notion/000000" alt="Notion"><span class="tip">Notion</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"><span class="tip">Figma</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/stripe/635BFF" alt="Stripe"><span class="tip">Stripe</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/openai/FFFFFF" alt="API.Bible"><span class="tip">API.Bible</span></div>
+    </div>
+  </div>
+
+  <!-- SECURITY -->
+  <div class="row-group">
+    <div class="row-label">— Offensive Security</div>
+    <div class="row">
+      <div class="key"><img src="https://cdn.simpleicons.org/kalilinux/557C94" alt="Kali"><span class="tip">Kali Linux</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/parrotsecurity/15E0F7" alt="Parrot OS"><span class="tip">Parrot OS</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/wireshark/1679A7" alt="Wireshark"><span class="tip">Wireshark</span></div>
+      <div class="key"><span class="txt">META<br>SPLOIT</span><span class="tip">Metasploit</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/nmap/FFFFFF" alt="Nmap"><span class="tip">Nmap</span></div>
+      <div class="key"><span class="txt">AIRC<br>RACK</span><span class="tip">Aircrack-ng</span></div>
+      <div class="key"><span class="txt">HASH<br>CAT</span><span class="tip">Hashcat</span></div>
+      <div class="key"><span class="txt">HYDRA</span><span class="tip">Hydra</span></div>
+      <div class="key"><span class="txt">JTR</span><span class="tip">John the Ripper</span></div>
+      <div class="key"><span class="txt">SET</span><span class="tip">Social-Engineer Toolkit</span></div>
+    </div>
+  </div>
+
+  <!-- TOOLS / OS / HARDWARE -->
+  <div class="row-group">
+    <div class="row-label">— Tools, OS &amp; Hardware</div>
+    <div class="row">
+      <div class="key"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code"><span class="tip">VS Code</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux"><span class="tip">Linux</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/apple/000000" alt="macOS"><span class="tip">macOS</span></div>
+      <div class="key cream"><img src="https://cdn.simpleicons.org/windows11/0078D4" alt="Windows"><span class="tip">Windows 11</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/ubuntu/E95420" alt="Ubuntu"><span class="tip">Ubuntu</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/raspberrypi/A22846" alt="Raspberry Pi"><span class="tip">Raspberry Pi</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/espressif/E7352C" alt="ESP8266"><span class="tip">ESP8266</span></div>
+      <div class="key"><img src="https://cdn.simpleicons.org/arduino/00979D" alt="Arduino"><span class="tip">Arduino</span></div>
+      <div class="key"><span class="txt">LAB<br>VIEW</span><span class="tip">LabVIEW</span></div>
+      <div class="key"><span class="txt">LEGO<br>EV3</span><span class="tip">LEGO Mindstorms EV3</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <span class="gr">●</span> &nbsp; everything above is real · all 60+ tools shipped in production projects &nbsp; <span class="gr">●</span><br>
+  Logos via simpleicons.org (MIT) · brand colors official · keys are decorative-only
+</div>
+
+</body>
+</html>
