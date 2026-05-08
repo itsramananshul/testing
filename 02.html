@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anshul Raman · v02 / Stōkt clone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#fdf9f4; --bg-2:#f0ece6; --ink:#0a0a0a; --ink-2:#444; --ink-3:#888;
+  --line:#d8d2c4; --green:#31ee33; --orange:#ff4d1c;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --gx: clamp(20px,4vw,56px);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+::selection { background:var(--ink); color:var(--bg); }
+html { background:var(--bg); }
+body {
+  background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:15px; line-height:1.5; font-weight:400;
+  -webkit-font-smoothing:antialiased; letter-spacing:-.005em;
+}
+a { color:inherit; text-decoration:none; }
+
+/* nav */
+nav {
+  position:fixed; top:18px; left:18px; right:18px; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:8px;
+}
+.brand { font-family:var(--sans); font-weight:800; font-size:18px; letter-spacing:-.03em; }
+.brand::before { content:'⌂  '; }
+.nav-links { display:flex; gap:14px; font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; }
+.nav-links a { padding:6px 10px; border-radius:4px; transition:background .2s; }
+.nav-links a:hover { background:var(--bg-2); }
+.nav-cta { font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; background:var(--ink); color:var(--bg); padding:8px 14px; border-radius:6px; }
+.nav-cta:hover { background:var(--orange); }
+
+/* hero */
+.hero { padding:130px var(--gx) 80px; }
+.hero-meta {
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+  margin-bottom:64px;
+}
+.hero-meta .pill {
+  background:var(--bg-2); padding:6px 12px; border-radius:999px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.hero-meta .pill::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--orange); }
+
+.hero-tag-row {
+  font-family:var(--mono); font-size:13px; letter-spacing:.06em;
+  margin-bottom:24px; opacity:.6;
+}
+.hero-tag-row::before { content:'( '; } .hero-tag-row::after { content:' )'; }
+
+.hero-headline {
+  font-family:var(--sans); font-weight:900;
+  font-size:clamp(48px, 8vw, 132px);
+  line-height:.92; letter-spacing:-.04em; text-transform:uppercase;
+}
+
+.hero-letterspace {
+  font-family:var(--sans); font-weight:500;
+  font-size:clamp(18px, 1.6vw, 22px); letter-spacing:.5em; text-transform:uppercase;
+  margin-top:48px; max-width:80ch; line-height:2.2;
+  opacity:.85; word-spacing:.5em;
+}
+.hero-cta-row {
+  display:flex; gap:14px; margin-top:48px; flex-wrap:wrap; align-items:center;
+}
+.btn {
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; font-weight:500;
+  padding:14px 22px; border-radius:999px; display:inline-flex; align-items:center; gap:8px;
+  transition:transform .25s, background .25s;
+}
+.btn-dark { background:var(--ink); color:var(--bg); }
+.btn-dark:hover { background:var(--orange); color:#000; transform:translateY(-2px); }
+.btn-light { background:var(--bg-2); color:var(--ink); }
+.btn-light:hover { background:var(--ink); color:var(--bg); }
+.scroll-hint { margin-left:auto; font-family:var(--mono); font-size:11px; letter-spacing:.06em; opacity:.5; text-transform:uppercase; }
+
+/* counter */
+.counter-row {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:0; padding:80px var(--gx);
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+}
+.cnt {
+  padding:24px; border-right:1px solid var(--line);
+}
+.cnt:last-child { border-right:none; }
+.cnt-n {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(60px, 7vw, 110px); line-height:.85; letter-spacing:-.04em;
+}
+.cnt-n .pct { color:var(--orange); font-weight:500; }
+.cnt-l {
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-2); margin-top:14px;
+}
+
+/* moving forward strip */
+.moving {
+  padding:32px 0; border-bottom:1px solid var(--line);
+  font-family:var(--sans); font-weight:400;
+  font-size:clamp(20px, 2.5vw, 32px); letter-spacing:-.02em;
+  white-space:nowrap; overflow:hidden;
+}
+.moving-track { display:inline-flex; gap:48px; animation:slide 30s linear infinite; }
+.moving-track span { display:inline-flex; align-items:center; gap:48px; }
+.moving-track span::after { content:'·'; font-size:1.4em; color:var(--ink-3); margin-left:48px; }
+@keyframes slide { to { transform:translateX(-50%); } }
+
+/* sections */
+.s { padding:120px var(--gx); border-bottom:1px solid var(--line); }
+.s-head { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:48px; }
+.s-tag { font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; opacity:.55; }
+.s-tag::before { content:'( '; } .s-tag::after { content:' )'; }
+.s-h {
+  font-family:var(--sans); font-weight:900;
+  font-size:clamp(40px, 6vw, 88px); line-height:.95; letter-spacing:-.035em; text-transform:uppercase;
+}
+
+/* featured work — alternating cards */
+.featured-grid {
+  display:grid; grid-template-columns:repeat(2, 1fr);
+  gap:18px;
+}
+.fw {
+  background:var(--bg-2);
+  border-radius:14px; padding:36px; min-height:380px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  transition:transform .35s, background .3s;
+}
+.fw:hover { transform:translateY(-4px); }
+.fw.dark { background:var(--ink); color:var(--bg); }
+.fw.dark .fw-cat { color:var(--orange); }
+.fw.dark .fw-tag { background:rgba(255,255,255,.08); color:var(--bg); border-color:rgba(255,255,255,.12); }
+.fw.green { background:var(--green); color:var(--ink); }
+.fw.green .fw-cat { color:var(--ink); }
+.fw-cat {
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--orange); margin-bottom:14px;
+}
+.fw-name {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(28px, 3.4vw, 48px); line-height:1; letter-spacing:-.025em;
+  margin-bottom:14px;
+}
+.fw-d { font-size:14.5px; line-height:1.55; opacity:.78; max-width:42ch; }
+.fw-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+.fw-tag {
+  font-family:var(--mono); font-size:10px; letter-spacing:.04em; text-transform:uppercase;
+  border:1px solid var(--line); padding:4px 9px; border-radius:4px; color:var(--ink-2);
+}
+.fw-arr { margin-top:18px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; opacity:.7; }
+.fw:hover .fw-arr::after { content:' →'; }
+.fw-arr::after { content:' ↗'; transition:content .25s; }
+
+/* all work compact list */
+.allwork { margin-top:48px; }
+.aw {
+  display:grid; grid-template-columns:60px 1.6fr 1.4fr 100px;
+  gap:24px; padding:18px 0; border-top:1px solid var(--line); align-items:baseline;
+  transition:padding .25s, background .2s;
+}
+.aw:last-child { border-bottom:1px solid var(--line); }
+.aw:hover { padding-left:8px; padding-right:8px; background:var(--bg-2); }
+.aw-n, .aw-yr { font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-3); text-transform:uppercase; }
+.aw-t { font-family:var(--sans); font-weight:700; font-size:18px; letter-spacing:-.015em; }
+.aw-cat { font-family:var(--mono); font-size:12px; color:var(--ink-2); }
+
+/* services — Stōkt-style 4-block grid */
+.services {
+  display:grid; grid-template-columns:repeat(4, 1fr);
+  gap:1px; background:var(--line); border:1px solid var(--line);
+  border-radius:14px; overflow:hidden; margin-top:32px;
+}
+.svc { background:var(--bg); padding:32px; display:flex; flex-direction:column; gap:14px; min-height:240px; }
+.svc-num { font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--orange); }
+.svc-t { font-family:var(--sans); font-weight:800; font-size:24px; letter-spacing:-.02em; }
+.svc-d { font-size:13px; line-height:1.6; color:var(--ink-2); margin-top:auto; }
+
+/* about+experience two-col */
+.split { display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+.split-text p {
+  font-family:var(--sans); font-size:18px; line-height:1.55; margin-bottom:1em; color:var(--ink-2);
+}
+.split-text p strong { color:var(--ink); font-weight:600; }
+.split-text p .accent { color:var(--orange); font-weight:600; }
+.exp-item { padding:20px 0; border-top:1px solid var(--line); display:flex; gap:18px; }
+.exp-item:last-child { border-bottom:1px solid var(--line); }
+.exp-when { font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3); flex-shrink:0; width:130px; padding-top:5px; }
+.exp-org { font-family:var(--sans); font-weight:700; font-size:18px; letter-spacing:-.015em; }
+.exp-role { font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--orange); margin-top:3px; }
+.exp-loc { font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-top:3px; }
+
+/* CTA / footer */
+#contact {
+  background:var(--ink); color:var(--bg);
+  padding:160px var(--gx); border-bottom:none; text-align:center;
+}
+#contact .s-h { color:var(--bg); }
+#contact .s-tag { color:rgba(253,249,244,.5); }
+#contact .lede { font-size:18px; line-height:1.55; color:rgba(253,249,244,.65); max-width:520px; margin:24px auto 48px; }
+#contact .btn-dark { background:var(--orange); color:#000; }
+#contact .btn-dark:hover { background:var(--bg); color:var(--ink); }
+
+footer {
+  background:var(--ink); color:rgba(253,249,244,.5);
+  padding:24px var(--gx); display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+}
+
+@media (max-width:900px) {
+  nav { left:12px; right:12px; padding:10px 14px; }
+  .nav-links { display:none; }
+  .featured-grid, .split, .services { grid-template-columns:1fr; }
+  .services { grid-template-columns:1fr 1fr; }
+  .counter-row { grid-template-columns:1fr; }
+  .cnt { border-right:none; border-bottom:1px solid var(--line); }
+  .cnt:last-child { border-bottom:none; }
+  .aw { grid-template-columns:40px 1fr; gap:6px 12px; }
+  .aw-cat, .aw-yr { grid-column:2; }
+  .s, .hero, #contact { padding-left:var(--gx); padding-right:var(--gx); }
+  .hero-meta { font-size:10px; }
+  footer { flex-direction:column; gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">Anshul Raman</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="mailto:ar.dev@anshulraman.com">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-meta">
+    <span class="pill">Available · Sophomore CS · UC</span>
+    <span>2026 · Cincinnati</span>
+  </div>
+
+  <div class="hero-tag-row">SOLO ENGINEER</div>
+  <h1 class="hero-headline">
+    Anshul<br>
+    Raman<br>
+    Builds AI Systems
+  </h1>
+  <p class="hero-letterspace">Anshul Raman is a sophomore CS engineer building production AI systems &mdash; ARIA, Auriva, VoxVitals &mdash; while serving as Founding Engineer at OpenPrem.</p>
+
+  <div class="hero-cta-row">
+    <a class="btn btn-dark" href="#work">View Projects ↗</a>
+    <a class="btn btn-light" href="mailto:ar.dev@anshulraman.com">Get a quote</a>
+    <span class="scroll-hint">Scroll for more · Est. in 2024</span>
+  </div>
+</section>
+
+<!-- COUNTER ROW -->
+<div class="counter-row">
+  <div class="cnt">
+    <div class="cnt-n">13<span class="pct">+</span></div>
+    <div class="cnt-l">— Projects Shipped</div>
+  </div>
+  <div class="cnt">
+    <div class="cnt-n">365</div>
+    <div class="cnt-l">— Days · ARIA in Production</div>
+  </div>
+  <div class="cnt">
+    <div class="cnt-n">3.<span class="pct">68</span></div>
+    <div class="cnt-l">— GPA · Dean's List Fall 2025</div>
+  </div>
+</div>
+
+<!-- MOVING STRIP -->
+<div class="moving">
+  <div class="moving-track">
+    <span>( Moving systems forward )</span>
+    <span>( Moving systems forward )</span>
+    <span>( Moving systems forward )</span>
+    <span>( Moving systems forward )</span>
+    <span>( Moving systems forward )</span>
+    <span>( Moving systems forward )</span>
+  </div>
+</div>
+
+<!-- FEATURED WORK -->
+<section class="s" id="work">
+  <div class="s-head">
+    <div>
+      <span class="s-tag">Selected Work</span>
+      <h2 class="s-h" style="margin-top:14px;">Featured<br>Work</h2>
+    </div>
+    <a class="btn btn-light" href="#allwork">All Work →</a>
+  </div>
+
+  <div class="featured-grid">
+    <a class="fw dark" href="https://aria.anshulraman.com" target="_blank">
+      <div>
+        <div class="fw-cat">— Adaptive AI · Production</div>
+        <div class="fw-name">ARIA</div>
+        <div class="fw-d">Personal AI live in production for a year. 12 serverless functions at the platform ceiling. 6 cron jobs every 15 min. 16/16 regression suite.</div>
+      </div>
+      <div>
+        <div class="fw-tags">
+          <span class="fw-tag">Node.js</span><span class="fw-tag">Vercel</span><span class="fw-tag">Supabase</span><span class="fw-tag">Gemini 2.5</span>
+        </div>
+        <div class="fw-arr">View live</div>
+      </div>
+    </a>
+    <a class="fw" href="https://auriva.anshulraman.com" target="_blank">
+      <div>
+        <div class="fw-cat">— Multi-Faith AI · Live</div>
+        <div class="fw-name">Auriva AI</div>
+        <div class="fw-d">16 sacred traditions, each with a dedicated live scripture API. Two-phase VAD, iOS audio unlock, Bible verse pipeline that pairs Gemini with API.Bible.</div>
+      </div>
+      <div>
+        <div class="fw-tags">
+          <span class="fw-tag">Vercel Edge</span><span class="fw-tag">Supabase</span><span class="fw-tag">Gemini 2.5</span>
+        </div>
+        <div class="fw-arr">View live</div>
+      </div>
+    </a>
+    <a class="fw green" href="https://voxvitals.anshulraman.tech/" target="_blank">
+      <div>
+        <div class="fw-cat">— 3rd · Medpace · 24h</div>
+        <div class="fw-name">VoxVitals</div>
+        <div class="fw-d">AI clinical-trial platform with voice check-ins and camera-based physiological sensing. Three role-based dashboards. Built in 24 hours.</div>
+      </div>
+      <div>
+        <div class="fw-tags">
+          <span class="fw-tag">Next.js</span><span class="fw-tag">Supabase</span><span class="fw-tag">Gemini</span><span class="fw-tag">ElevenLabs</span>
+        </div>
+        <div class="fw-arr">View live</div>
+      </div>
+    </a>
+    <a class="fw" href="https://gradintel.anshulraman.com" target="_blank">
+      <div>
+        <div class="fw-cat">— Live · Multi-LLM</div>
+        <div class="fw-name">GradeIntel</div>
+        <div class="fw-d">Cloud-synced GPA dashboard with grade simulator, multi-model AI assistant (Gemini + Grok + Claude + OpenAI), Canvas LMS integration.</div>
+      </div>
+      <div>
+        <div class="fw-tags">
+          <span class="fw-tag">Python</span><span class="fw-tag">Supabase</span><span class="fw-tag">Multi-LLM</span>
+        </div>
+        <div class="fw-arr">View live</div>
+      </div>
+    </a>
+  </div>
+
+  <div id="allwork" class="allwork">
+    <div class="aw"><span class="aw-n">05</span><span class="aw-t">ReachOut</span><span class="aw-cat">Job outreach automation · 4 boards</span><span class="aw-yr">2026</span></div>
+    <div class="aw"><span class="aw-n">06</span><span class="aw-t">AI Phone Agent</span><span class="aw-cat">Twilio + LLaMA + Whisper · local</span><span class="aw-yr">2025</span></div>
+    <div class="aw"><span class="aw-n">07</span><span class="aw-t">EV3 Autonomous Robot</span><span class="aw-cat">LabVIEW · sensors · state machine</span><span class="aw-yr">2025</span></div>
+    <div class="aw"><span class="aw-n">08</span><span class="aw-t">Python ATM System</span><span class="aw-cat">File I/O · PIN security</span><span class="aw-yr">2024</span></div>
+    <div class="aw"><span class="aw-n">09</span><span class="aw-t">Bus Booking System</span><span class="aw-cat">File-backed reservations</span><span class="aw-yr">2024</span></div>
+    <div class="aw"><span class="aw-n">10</span><span class="aw-t">AI Medicine Dispenser</span><span class="aw-cat">Facial recognition · IoT</span><span class="aw-yr">2024</span></div>
+    <div class="aw"><span class="aw-n">11</span><span class="aw-t">RAT &amp; Pen-Test Lab</span><span class="aw-cat">Metasploit · Kali</span><span class="aw-yr">2024</span></div>
+    <div class="aw"><span class="aw-n">12</span><span class="aw-t">Wi-Fi Pen-Test Device</span><span class="aw-cat">ESP8266 · Aircrack-ng</span><span class="aw-yr">2024</span></div>
+    <div class="aw"><span class="aw-n">13</span><span class="aw-t">Phishing Simulation</span><span class="aw-cat">SET · Social engineering</span><span class="aw-yr">2024</span></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="s" id="services">
+  <div class="s-head">
+    <div>
+      <span class="s-tag">Services</span>
+      <h2 class="s-h" style="margin-top:14px;">What I do</h2>
+    </div>
+  </div>
+  <div class="services">
+    <div class="svc">
+      <div class="svc-num">— 01</div>
+      <div class="svc-t">AI Systems</div>
+      <div class="svc-d">Production AI agents, voice pipelines, RAG, vector retrieval, autonomous workflows.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">— 02</div>
+      <div class="svc-t">Full Stack</div>
+      <div class="svc-d">Next.js, Vercel + Supabase apps, edge functions, PWAs, real-time data.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">— 03</div>
+      <div class="svc-t">Voice &amp; Audio</div>
+      <div class="svc-d">Always-on agents, wake-word, VAD, TTS pipelines across desktop / iOS / Android.</div>
+    </div>
+    <div class="svc">
+      <div class="svc-num">— 04</div>
+      <div class="svc-t">Security Labs</div>
+      <div class="svc-d">Offensive lab work, pen-test rigs, social-engineering studies in controlled environments.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="s" id="about">
+  <div class="s-head">
+    <div>
+      <span class="s-tag">About Me</span>
+      <h2 class="s-h" style="margin-top:14px;">Sophomore.<br>Founding Engineer.</h2>
+    </div>
+  </div>
+  <div class="split">
+    <div class="split-text">
+      <p>Anshul Raman is a <strong>sophomore at the University of Cincinnati</strong>, studying Computer Science with a focus on full-stack development and AI systems.</p>
+      <p>Currently <span class="accent">Founding Engineer at OpenPrem</span> &mdash; based in Cincinnati, Ohio. Builder of <span class="accent">ARIA</span>, a personal AI live in production for a year, and 12 other shipped projects across AI, full-stack, and offensive security.</p>
+      <p>Hackathon-tested. Production-tested. Most comfortable when something has to actually work, in front of real users, by morning.</p>
+    </div>
+    <div>
+      <div class="exp-item"><div class="exp-when">Apr 2026 → Now</div><div><div class="exp-org">OpenPrem</div><div class="exp-role">Founding Engineer</div><div class="exp-loc">Cincinnati · OH · USA</div></div></div>
+      <div class="exp-item"><div class="exp-when">May 2023—Mar 2024</div><div><div class="exp-org">Sant Gyaneshwar Model School</div><div class="exp-role">President · Science Club</div><div class="exp-loc">Alipur · Delhi · India</div></div></div>
+      <div class="exp-item"><div class="exp-when">Dec 2022—Jan 2023</div><div><div class="exp-org">Tapan Rehabilitation Centre</div><div class="exp-role">Event Coordinator</div><div class="exp-loc">Karnal · Haryana · India</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="s" id="contact">
+  <span class="s-tag">Reach Out</span>
+  <h2 class="s-h" style="margin-top:14px;">Let's<br>build it.</h2>
+  <p class="lede">Internships, AI engineering work, hackathon teams, security collabs &mdash; or just to talk about the ideas. Drop a line.</p>
+  <a class="btn btn-dark" href="mailto:ar.dev@anshulraman.com">ar.dev@anshulraman.com →</a>
+</section>
+
+<footer>
+  <span>© 2026 Anshul Raman</span>
+  <span>v02 · stōkt clone</span>
+  <span>Cincinnati · OH</span>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}}}));
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anshul Raman · v03 / Midlife clone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Doto:wght@400;700;900&family=Fragment+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ebebeb; --bg-2:#dfdfdf; --bg-3:#262626;
+  --ink:#0a0a0a; --ink-2:#3a3a3a; --ink-3:#666; --ink-4:#999;
+  --orange:#ff611a;
+  --line:#cfcfcf;
+  --sans:'Manrope',system-ui,sans-serif;
+  --display:'Doto',system-ui,sans-serif;
+  --mono:'Fragment Mono',ui-monospace,monospace;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+::selection { background:var(--orange); color:#000; }
+html { background:var(--bg); }
+body {
+  background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:15px; line-height:1.55; font-weight:400;
+  -webkit-font-smoothing:antialiased; min-height:100dvh;
+}
+a { color:inherit; text-decoration:none; }
+
+/* circular orange logo (top-left, fixed) */
+.disc {
+  position:fixed; top:18px; left:18px; z-index:50;
+  width:64px; height:64px; border-radius:50%;
+  background:var(--orange);
+  display:grid; place-items:center;
+  font-family:var(--display); font-weight:900;
+  font-size:22px; color:#fff;
+  box-shadow:0 4px 18px -4px rgba(255,97,26,.5);
+  transition:transform .4s;
+}
+.disc:hover { transform:rotate(45deg); }
+
+/* TAB NAV (top-center pill, like Midlife's BEATS/RECORD/SESSION/TRACKS) */
+.tab-nav {
+  position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:50;
+  display:flex; gap:0;
+  background:var(--bg-3); color:#fff;
+  padding:6px; border-radius:999px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  backdrop-filter:blur(10px);
+}
+.tab-nav a {
+  padding:10px 18px; border-radius:999px;
+  color:rgba(255,255,255,.6); transition:color .25s, background .25s;
+}
+.tab-nav a:hover, .tab-nav a.active { color:#fff; background:rgba(255,255,255,.08); }
+.tab-nav .blink::before { content:'●'; color:var(--orange); margin-right:6px; animation:bk 1s steps(2) infinite; }
+@keyframes bk { 50% { opacity:.3; } }
+
+/* AUTOPLAY pill (top-right) */
+.autoplay {
+  position:fixed; top:34px; right:18px; z-index:50;
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; opacity:.55;
+}
+.autoplay .dot { width:8px; height:8px; border-radius:50%; background:var(--orange); animation:bk 1.4s ease-in-out infinite; }
+
+/* HERO */
+.hero {
+  min-height:100dvh; padding:140px 6vw 80px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.hero-eyebrow {
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:32px;
+  display:flex; align-items:center; gap:10px;
+}
+.hero-eyebrow::before { content:'⌬'; color:var(--orange); font-size:1.2em; }
+
+.hero-h {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(48px, 8vw, 132px); line-height:.95;
+  letter-spacing:-.045em;
+  margin-bottom:32px;
+}
+.hero-h b { font-weight:700; }
+.hero-h .accent { color:var(--orange); font-weight:600; font-style:italic; }
+
+.hero-letterspaced {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(15px, 1.4vw, 18px); line-height:2.4;
+  letter-spacing:.6em; text-transform:uppercase;
+  max-width:75ch; opacity:.7; margin-top:48px;
+}
+
+.hero-bottom {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-top:80px; flex-wrap:wrap; gap:18px;
+}
+.hero-bottom .made {
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; opacity:.45;
+}
+.btn-orange {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--orange); color:#fff;
+  font-family:var(--sans); font-weight:600; font-size:15px;
+  padding:16px 24px; border-radius:999px;
+  transition:transform .25s, box-shadow .25s;
+}
+.btn-orange:hover { transform:translateY(-2px); box-shadow:0 12px 28px -8px rgba(255,97,26,.5); }
+
+/* full-width letter-spaced block — "midlife engineering is a space where..." */
+.letter-block {
+  padding:96px 6vw 60px;
+  border-top:1px solid var(--line);
+}
+.letter-block h2 {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(20px, 2vw, 26px); line-height:2.4;
+  letter-spacing:.55em; text-transform:uppercase;
+  max-width:90ch;
+}
+.letter-block h2 b { font-weight:600; }
+
+/* BAKED IN SCIENCE strip */
+.bakehead {
+  padding:80px 6vw 24px;
+  font-family:var(--mono); font-size:13px; letter-spacing:.16em; text-transform:uppercase;
+  display:flex; align-items:center; gap:12px; opacity:.6;
+}
+.bakehead::after { content:''; flex:1; height:1px; background:var(--line); }
+.bakehead .glyph { color:var(--orange); font-size:1.4em; }
+
+.bake-body {
+  padding:0 6vw 96px;
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(20px, 2.2vw, 30px); line-height:1.45; letter-spacing:-.015em;
+  max-width:60ch;
+  color:var(--ink-2);
+}
+.bake-body em { font-style:italic; color:var(--orange); }
+
+/* WORK as ambient cards */
+.work-section { padding:120px 6vw 60px; background:var(--bg-3); color:#fff; }
+.work-section .bakehead { color:rgba(255,255,255,.7); padding:0 0 32px; }
+.work-section .bakehead::after { background:rgba(255,255,255,.15); }
+.work-section h2 {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(40px, 6vw, 84px); line-height:.96; letter-spacing:-.035em;
+  margin-bottom:48px;
+}
+.work-section h2 b { color:var(--orange); font-weight:700; font-style:italic; }
+.tracks { display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; }
+.track {
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+  padding:32px; border-radius:14px;
+  display:flex; flex-direction:column; gap:14px; min-height:260px;
+  transition:background .3s, transform .3s;
+  position:relative; overflow:hidden;
+}
+.track:hover { background:rgba(255,255,255,.08); transform:translateY(-4px); }
+.track::before {
+  content:''; position:absolute; top:24px; right:24px;
+  width:14px; height:14px; border-radius:50%; background:var(--orange);
+  box-shadow:0 0 12px var(--orange); animation:bk 2s ease-in-out infinite;
+}
+.track-num { font-family:var(--mono); font-size:11px; letter-spacing:.16em; opacity:.5; text-transform:uppercase; }
+.track-t { font-family:var(--sans); font-weight:600; font-size:clamp(28px,3vw,40px); letter-spacing:-.02em; }
+.track-d { font-size:14.5px; line-height:1.6; opacity:.7; margin-top:auto; }
+.track-meta { display:flex; gap:14px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; opacity:.55; }
+
+/* compact list within work section */
+.compact { padding-top:32px; }
+.compact-row {
+  display:grid; grid-template-columns:60px 1.6fr 1fr 100px;
+  gap:18px; padding:14px 0;
+  border-top:1px solid rgba(255,255,255,.08);
+  font-family:var(--sans);
+  font-size:14px;
+  align-items:baseline;
+}
+.compact-row:hover { background:rgba(255,255,255,.04); padding-left:8px; padding-right:8px; }
+.compact-row:last-child { border-bottom:1px solid rgba(255,255,255,.08); }
+.compact-row .n, .compact-row .yr { font-family:var(--mono); font-size:11px; letter-spacing:.06em; opacity:.5; text-transform:uppercase; }
+.compact-row .ttl { font-weight:600; }
+.compact-row .stack { font-family:var(--mono); font-size:11px; opacity:.55; }
+
+/* ABOUT (back to bg) */
+.about { padding:120px 6vw; }
+.about-h {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(40px, 6vw, 84px); line-height:.96; letter-spacing:-.035em; margin-bottom:32px;
+}
+.about-h b { font-weight:700; }
+.about-h em { font-style:italic; color:var(--orange); }
+.about-body {
+  font-family:var(--sans); font-size:clamp(18px, 2vw, 22px); line-height:1.55;
+  max-width:70ch; color:var(--ink-2);
+}
+.about-body p { margin-bottom:1em; }
+.about-body p strong { color:var(--ink); font-weight:600; }
+.about-body p .accent { color:var(--orange); font-weight:600; }
+
+/* exp + skills inline */
+.two-col {
+  padding:48px 0; display:grid; grid-template-columns:1fr 1fr; gap:48px;
+}
+.two-col h3 { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.6; margin-bottom:18px; }
+.two-col .row {
+  padding:14px 0; border-top:1px solid var(--line);
+  display:grid; grid-template-columns:120px 1fr; gap:18px; align-items:baseline;
+}
+.two-col .row:last-child { border-bottom:1px solid var(--line); }
+.two-col .when { font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; opacity:.55; }
+.two-col .what { font-weight:600; }
+.two-col .what .role { display:block; font-weight:400; font-size:12px; color:var(--orange); margin-top:3px; }
+.two-col .what .loc { display:block; font-weight:400; font-size:11px; color:var(--ink-3); margin-top:3px; font-family:var(--mono); }
+.skill-list { display:flex; flex-direction:column; gap:8px; }
+.skill-list .row { grid-template-columns:120px 1fr; }
+.skill-list .row .what { font-family:var(--mono); font-size:13px; line-height:1.6; font-weight:400; color:var(--ink-2); }
+
+/* CONTACT — orange */
+#contact { background:var(--orange); color:#000; padding:160px 6vw; text-align:center; }
+#contact h2 {
+  font-family:var(--sans); font-weight:300;
+  font-size:clamp(48px, 9vw, 140px); line-height:.95; letter-spacing:-.04em; max-width:18ch; margin:0 auto 32px;
+}
+#contact h2 em { font-style:italic; font-weight:700; }
+#contact .tag { font-family:var(--mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; opacity:.6; margin-bottom:32px; }
+#contact .lede { font-family:var(--sans); font-size:18px; line-height:1.5; max-width:520px; margin:0 auto 48px; opacity:.8; }
+#contact .btn-dark {
+  display:inline-flex; align-items:center; gap:10px;
+  background:#000; color:#fff;
+  font-family:var(--sans); font-weight:600; font-size:15px;
+  padding:18px 28px; border-radius:999px;
+  transition:transform .25s;
+}
+#contact .btn-dark:hover { transform:translateY(-2px); }
+
+footer {
+  background:#000; color:rgba(255,255,255,.5);
+  padding:24px 6vw; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+}
+
+@media (max-width:768px) {
+  .disc { width:48px; height:48px; font-size:18px; }
+  .tab-nav { font-size:9px; padding:5px; }
+  .tab-nav a { padding:7px 11px; }
+  .autoplay { display:none; }
+  .hero { padding:120px 5vw 60px; }
+  .letter-block, .work-section, .about, #contact { padding-left:5vw; padding-right:5vw; }
+  .tracks { grid-template-columns:1fr; }
+  .two-col { grid-template-columns:1fr; gap:24px; }
+  .two-col .row { grid-template-columns:1fr; gap:6px; }
+  .compact-row { grid-template-columns:40px 1fr; gap:6px 12px; }
+  .compact-row .stack, .compact-row .yr { grid-column:2; }
+  footer { flex-direction:column; gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<a class="disc" href="#" title="Anshul Raman">A</a>
+
+<nav class="tab-nav">
+  <a href="#hero" class="active blink">HERO</a>
+  <a href="#work">PROJECTS</a>
+  <a href="#about">ABOUT</a>
+  <a href="#contact">CONTACT</a>
+</nav>
+
+<div class="autoplay"><span class="dot"></span>Building</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">Made for shipping, building, and everything in between.</div>
+  <h1 class="hero-h">
+    <b>Anshul Raman</b><br>
+    builds AI<br>
+    <span class="accent">that runs in the background</span>
+  </h1>
+  <p class="hero-letterspaced">Anshul Raman is a sophomore at the University of Cincinnati and the founding engineer at OpenPrem, building production AI systems that run for months without anyone touching them.</p>
+  <div class="hero-bottom">
+    <div class="made">© 2026 — built by Anshul Raman</div>
+    <a class="btn-orange" href="#work">Browse the projects ⌬</a>
+  </div>
+</section>
+
+<!-- AMBIENT LETTER-SPACED -->
+<section class="letter-block">
+  <h2>I build production AI systems &mdash; the kind that <b>run for months without anyone touching them.</b> ARIA, my personal AI, has been live in production for a year. It writes my morning briefings before I'm awake, manages my deadlines, and never asks for credit.</h2>
+</section>
+
+<!-- BAKED IN SCIENCE strip -->
+<div class="bakehead"><span class="glyph">⌬</span> baked in production · 13 + projects shipped</div>
+<div class="bake-body">
+  Twelve serverless functions at the platform ceiling. Six cron jobs every fifteen minutes. Sixteen-of-sixteen regression tests passing against a live endpoint. <em>Three hundred and sixty-five days</em> of an AI running without going down. The numbers are the easy part. <em>Getting it to feel calm</em> — that took the year.
+</div>
+
+<!-- WORK / TRACKS section -->
+<section class="work-section" id="work">
+  <div class="bakehead"><span class="glyph" style="color:var(--orange)">⌬</span>Selected Projects · TRACKS</div>
+  <h2>Things I've <b>actually built.</b></h2>
+
+  <div class="tracks">
+    <a class="track" href="https://aria.anshulraman.com" target="_blank">
+      <div class="track-num">— TRACK 01</div>
+      <div class="track-t">ARIA</div>
+      <div class="track-meta"><span>Adaptive AI</span><span>·</span><span>1 year live</span></div>
+      <div class="track-d">Personal AI live in production for a year. 12 serverless fns at the platform ceiling. 6 cron jobs every 15 min. 16/16 regression suite.</div>
+    </a>
+    <a class="track" href="https://auriva.anshulraman.com" target="_blank">
+      <div class="track-num">— TRACK 02</div>
+      <div class="track-t">Auriva AI</div>
+      <div class="track-meta"><span>Multi-Faith</span><span>·</span><span>16 traditions</span></div>
+      <div class="track-d">16 sacred traditions, each with a dedicated live scripture API and authored Gemini prompt. Voice agents across iOS / Android / desktop.</div>
+    </a>
+    <a class="track" href="https://voxvitals.anshulraman.tech/" target="_blank">
+      <div class="track-num">— TRACK 03</div>
+      <div class="track-t">VoxVitals</div>
+      <div class="track-meta"><span>3rd · 24h hackathon</span></div>
+      <div class="track-d">AI clinical-trial platform. Voice check-ins. Real-time camera-based physiological sensing. Three role-based dashboards. Built in 24 hours.</div>
+    </a>
+    <a class="track" href="https://gradintel.anshulraman.com" target="_blank">
+      <div class="track-num">— TRACK 04</div>
+      <div class="track-t">GradeIntel</div>
+      <div class="track-meta"><span>Live</span><span>·</span><span>multi-LLM</span></div>
+      <div class="track-d">Cloud-synced GPA dashboard with simulator, multi-model AI assistant (Gemini, Grok, Claude, OpenAI), Canvas LMS integration.</div>
+    </a>
+  </div>
+
+  <div class="compact">
+    <div class="compact-row"><span class="n">05</span><span class="ttl">ReachOut</span><span class="stack">Job-outreach automation · 4 boards</span><span class="yr">2026</span></div>
+    <div class="compact-row"><span class="n">06</span><span class="ttl">AI Phone Agent</span><span class="stack">Twilio + LLaMA + Whisper · local</span><span class="yr">2025</span></div>
+    <div class="compact-row"><span class="n">07</span><span class="ttl">EV3 Autonomous Robot</span><span class="stack">LabVIEW · sensors · state machine</span><span class="yr">2025</span></div>
+    <div class="compact-row"><span class="n">08</span><span class="ttl">Python ATM System</span><span class="stack">File I/O · PIN security</span><span class="yr">2024</span></div>
+    <div class="compact-row"><span class="n">09</span><span class="ttl">Bus Booking System</span><span class="stack">File-backed reservations</span><span class="yr">2024</span></div>
+    <div class="compact-row"><span class="n">10</span><span class="ttl">AI Medicine Dispenser</span><span class="stack">Facial recognition · IoT</span><span class="yr">2024</span></div>
+    <div class="compact-row"><span class="n">11</span><span class="ttl">RAT &amp; Pen-Test Lab</span><span class="stack">Metasploit · Kali</span><span class="yr">2024</span></div>
+    <div class="compact-row"><span class="n">12</span><span class="ttl">Wi-Fi Pen-Test Device</span><span class="stack">ESP8266 · Aircrack-ng</span><span class="yr">2024</span></div>
+    <div class="compact-row"><span class="n">13</span><span class="ttl">Phishing Simulation</span><span class="stack">SET · Social engineering</span><span class="yr">2024</span></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <h1 class="about-h">A little <em>about</em> me</h1>
+  <div class="about-body">
+    <p><strong>Sophomore at the University of Cincinnati</strong> studying Computer Science with a focus on full-stack development and AI systems. <span class="accent">Founding Engineer at OpenPrem.</span></p>
+    <p>I've spent the last year building <span class="accent">ARIA</span> — a personal AI that runs in the background of my life, every day, without being asked. It writes my morning briefings before I'm awake. Manages my deadlines. Routes my email. Mostly, it has gotten very good at being <em>quiet</em>.</p>
+    <p>Hackathon-tested. Production-tested. Most comfortable when something has to actually work, in front of real users, by morning.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>— Experience</h3>
+      <div class="row"><span class="when">Apr 2026 → Now</span><span class="what">OpenPrem<span class="role">Founding Engineer</span><span class="loc">Cincinnati · OH · USA</span></span></div>
+      <div class="row"><span class="when">May'23—Mar'24</span><span class="what">Sant Gyaneshwar Model School<span class="role">President · Science Club</span><span class="loc">Alipur · Delhi · India</span></span></div>
+      <div class="row"><span class="when">Dec'22—Jan'23</span><span class="what">Tapan Rehabilitation Centre<span class="role">Event Coordinator</span><span class="loc">Karnal · Haryana · India</span></span></div>
+    </div>
+    <div class="skill-list">
+      <h3>— Tools</h3>
+      <div class="row"><span class="when">AI / LLMs</span><span class="what">Gemini 2.5 · Claude · OpenAI · Grok · Ollama · Groq Whisper · faster-whisper · OpenWakeWord · edge-tts</span></div>
+      <div class="row"><span class="when">Stack</span><span class="what">Node.js · Python · TS · Next.js · Vercel Edge · Supabase · Postgres · PWA · Three.js</span></div>
+      <div class="row"><span class="when">Integrations</span><span class="what">Google OAuth · Gmail · Calendar · Telegram · GitHub · Twilio · Canvas LMS · API.Bible</span></div>
+      <div class="row"><span class="when">Security</span><span class="what">Metasploit · Nmap · Aircrack-ng · Hashcat · Wireshark · Kali · Parrot OS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="tag">⌬ Let's make something</div>
+  <h2>Let's <em>build</em> together.</h2>
+  <p class="lede">For internships, AI engineering work, hackathon teams, security collabs &mdash; or just to talk about the ideas. I read every email.</p>
+  <a class="btn-dark" href="mailto:ar.dev@anshulraman.com">ar.dev@anshulraman.com →</a>
+</section>
+
+<footer>
+  <span>© 2026 made by Anshul Raman</span>
+  <span>v03 · midlife clone</span>
+  <span>Cincinnati · OH</span>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.tab-nav a').forEach(n=>n.classList.toggle('active',n===a));}}}));
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anshul Raman · v01 / Thibaut clone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#000; --ink:#fff; --ink-2:rgba(255,255,255,.55); --ink-3:rgba(255,255,255,.32); --line:rgba(255,255,255,.10); }
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+::selection { background:#fff; color:#000; }
+html { background:#000; }
+body {
+  background:#000; color:#fff;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:15px; line-height:1.5; font-weight:300;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+
+/* nav */
+nav {
+  position:fixed; top:32px; left:0; right:0; z-index:100;
+  display:flex; justify-content:center; gap:48px;
+  font-family:'Instrument Serif',serif; font-size:18px;
+  mix-blend-mode:difference;
+}
+nav a { opacity:.6; transition:opacity .25s; }
+nav a:hover, nav a.active { opacity:1; font-style:italic; }
+.brand-fixed { position:fixed; top:32px; left:32px; z-index:100; font-family:'Instrument Serif',serif; font-size:18px; mix-blend-mode:difference; }
+.contact-fixed { position:fixed; top:32px; right:32px; z-index:100; font-family:'Instrument Serif',serif; font-size:18px; font-style:italic; mix-blend-mode:difference; }
+
+/* hero */
+.hero {
+  min-height:100vh; padding:0 8vw; display:flex; flex-direction:column; justify-content:center;
+  position:relative;
+}
+.hero h1 {
+  font-family:'Instrument Serif',serif; font-weight:400; font-style:italic;
+  font-size:clamp(48px, 7.5vw, 132px);
+  line-height:1; letter-spacing:-.02em;
+  font-variation-settings:"opsz" 72;
+  max-width:14ch;
+}
+.hero h1 .stand { font-style:normal; }
+.hero h1 .name { font-style:italic; display:block; margin-bottom:14px; }
+.hero h1 b { font-weight:400; }
+.hero h1 .small {
+  display:block; font-style:normal; font-family:'Instrument Serif',serif;
+  font-size:.36em; line-height:1.45; letter-spacing:.005em;
+  margin-top:36px; max-width:32ch; opacity:.7;
+}
+.hero-corner-time {
+  position:absolute; bottom:36px; left:8vw;
+  font-family:'Instrument Serif',serif; font-style:italic;
+  font-size:14px; opacity:.45;
+}
+.hero-corner-loc {
+  position:absolute; bottom:36px; right:8vw;
+  font-family:'Instrument Serif',serif; font-style:italic;
+  font-size:14px; opacity:.45; text-align:right;
+}
+
+/* works section */
+.works {
+  padding:120px 8vw;
+}
+.works-h {
+  font-family:'Instrument Serif',serif; font-style:italic; font-weight:400;
+  font-size:clamp(48px, 7vw, 120px); line-height:.92; letter-spacing:-.02em;
+  margin-bottom:64px;
+  font-variation-settings:"opsz" 72;
+}
+.work {
+  display:grid; grid-template-columns:1.3fr 1fr 200px;
+  gap:48px; padding:38px 0;
+  border-top:1px solid var(--line);
+  align-items:start;
+}
+.work:last-child { border-bottom:1px solid var(--line); }
+.work-t {
+  font-family:'Instrument Serif',serif; font-style:italic; font-weight:400;
+  font-size:clamp(40px, 4.4vw, 72px); line-height:1; letter-spacing:-.025em;
+  font-variation-settings:"opsz" 60;
+}
+.work-t b { font-style:normal; font-weight:400; }
+.work-meta {
+  font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; line-height:1.45;
+  opacity:.7;
+}
+.work-meta-row { display:block; }
+.work-meta-row + .work-meta-row { margin-top:6px; opacity:.45; font-size:14px; }
+.work-cta {
+  font-family:'Instrument Serif',serif; font-style:italic; font-size:16px;
+  text-align:right; opacity:.65; transition:opacity .25s, transform .25s;
+  display:inline-flex; align-items:center; gap:6px; justify-content:flex-end; width:100%;
+}
+.work:hover .work-cta { opacity:1; }
+.work:hover .work-cta::after { content:' →'; }
+.work:hover .work-t { font-style:italic; }
+.work-tag {
+  display:inline-block; font-family:'Instrument Serif',serif; font-size:13px;
+  font-style:italic; opacity:.55; margin-top:14px; letter-spacing:.005em;
+}
+
+/* about section */
+.about {
+  padding:140px 8vw 120px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px;
+}
+.about h2 {
+  font-family:'Instrument Serif',serif; font-style:italic; font-weight:400;
+  font-size:clamp(56px, 8vw, 132px); line-height:.92; letter-spacing:-.025em;
+  font-variation-settings:"opsz" 72;
+}
+.about-body p {
+  font-family:'Instrument Serif',serif; font-size:22px; line-height:1.45;
+  margin-bottom:1.2em;
+  opacity:.78;
+}
+.about-body p strong { font-style:italic; opacity:1; font-weight:400; }
+.about-body p em { font-style:italic; opacity:1; }
+
+.three-col {
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:32px;
+  padding:80px 8vw 60px; border-top:1px solid var(--line);
+}
+.three-col h3 {
+  font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; font-size:32px; margin-bottom:14px;
+}
+.three-col p { font-size:14px; line-height:1.65; opacity:.65; max-width:320px; }
+
+/* contact */
+.contact {
+  padding:140px 8vw; text-align:center;
+  border-top:1px solid var(--line);
+}
+.contact-line {
+  font-family:'Instrument Serif',serif; font-style:italic; font-weight:400;
+  font-size:clamp(40px, 5vw, 80px); line-height:1.05; letter-spacing:-.02em; max-width:18ch; margin:0 auto 24px;
+  font-variation-settings:"opsz" 72;
+}
+.contact-mail {
+  font-family:'Instrument Serif',serif; font-style:italic; font-size:24px;
+  border-bottom:1px solid var(--ink-2); padding-bottom:4px;
+}
+.contact-mail:hover { border-color:#fff; }
+.contact-socials { margin-top:60px; display:flex; justify-content:center; gap:32px; font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; opacity:.55; }
+.contact-socials a:hover { opacity:1; }
+
+footer { padding:32px 8vw; display:flex; justify-content:space-between; font-family:'Instrument Serif',serif; font-style:italic; font-size:14px; opacity:.45; flex-wrap:wrap; gap:12px; }
+
+@media (max-width:768px) {
+  nav { gap:24px; font-size:15px; }
+  .brand-fixed, .contact-fixed { font-size:14px; top:20px; }
+  .brand-fixed { left:18px; } .contact-fixed { right:18px; }
+  nav { top:48px; }
+  .hero, .works, .about, .three-col, .contact, footer { padding-left:18px; padding-right:18px; }
+  .hero { padding-top:96px; }
+  .hero h1 { font-size:clamp(36px,11vw,72px); max-width:100%; }
+  .hero-corner-time, .hero-corner-loc { left:18px; right:18px; bottom:24px; font-size:12px; }
+  .hero-corner-loc { left:auto; }
+  .work { grid-template-columns:1fr; gap:8px; padding:24px 0; }
+  .work-cta { text-align:left; justify-content:flex-start; }
+  .about, .three-col { grid-template-columns:1fr; gap:24px; padding-top:80px; }
+  footer { flex-direction:column; gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<a class="brand-fixed" href="#">Anshul Raman</a>
+<nav>
+  <a href="#hero" class="active">Home</a>
+  <a href="#works">Works</a>
+  <a href="#about">About me</a>
+  <a href="#contact">Contact</a>
+</nav>
+<a class="contact-fixed" href="mailto:ar.dev@anshulraman.com">Get in touch</a>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <h1>
+    <span class="name">Anshul Raman,</span>
+    AI engineer<br>
+    <span class="stand">who builds<br>systems that<br><b><i>think for themselves.</i></b></span>
+    <span class="small">Sophomore at the University of Cincinnati. Founding Engineer at OpenPrem. Building software that runs in the background of real lives, every day, for months.</span>
+  </h1>
+  <span class="hero-corner-time">— sophomore, Cincinnati</span>
+  <span class="hero-corner-loc">2026</span>
+</section>
+
+<!-- WORKS -->
+<section class="works" id="works">
+  <h2 class="works-h">Cool stuff I've done</h2>
+
+  <a class="work" href="https://aria.anshulraman.com" target="_blank">
+    <div>
+      <div class="work-t"><b>ARIA</b></div>
+      <div class="work-tag">— Adaptive AI System</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Personal Project · 2025—Present</span>
+      <span class="work-meta-row">In production for 1 year. 12 serverless fns. 6 cron jobs. 16/16 regression suite.</span>
+    </div>
+    <div class="work-cta">View ARIA</div>
+  </a>
+
+  <a class="work" href="https://auriva.anshulraman.com" target="_blank">
+    <div>
+      <div class="work-t"><b>Auriva AI</b></div>
+      <div class="work-tag">— Multi-Faith Spiritual Guide</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Personal Project · 2026</span>
+      <span class="work-meta-row">16 sacred traditions, 4 live scripture APIs, voice agent across iOS/Android/desktop.</span>
+    </div>
+    <div class="work-cta">View Auriva</div>
+  </a>
+
+  <a class="work" href="https://voxvitals.anshulraman.tech/" target="_blank">
+    <div>
+      <div class="work-t"><b>VoxVitals</b></div>
+      <div class="work-tag">— AI Clinical Trial Platform</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Hackathon · 24-hour build · 3rd Place</span>
+      <span class="work-meta-row">Medpace Clinical Trial Challenge · MLH Best Use of Presage API · RevolutionUC 2026</span>
+    </div>
+    <div class="work-cta">View VoxVitals</div>
+  </a>
+
+  <a class="work" href="https://gradintel.anshulraman.com" target="_blank">
+    <div>
+      <div class="work-t"><b>GradeIntel</b></div>
+      <div class="work-tag">— Academic Performance Platform</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Personal Project · 2026 · Live</span>
+      <span class="work-meta-row">GPA dashboard, multi-LLM AI assistant, Canvas LMS integration, study planner.</span>
+    </div>
+    <div class="work-cta">View GradeIntel</div>
+  </a>
+
+  <a class="work" href="https://reachout.anshulraman.com/" target="_blank">
+    <div>
+      <div class="work-t"><b>ReachOut</b></div>
+      <div class="work-tag">— Job Outreach Automation</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Personal Project · 2026</span>
+      <span class="work-meta-row">Cold-email automation across 4 job boards, sent from your own Gmail.</span>
+    </div>
+    <div class="work-cta">View ReachOut</div>
+  </a>
+
+  <a class="work" href="https://github.com/itsramananshul/ai-phone-agent/" target="_blank">
+    <div>
+      <div class="work-t"><b>AI Phone Agent</b></div>
+      <div class="work-tag">— Local Voice AI</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Personal Project · 2025</span>
+      <span class="work-meta-row">Twilio + LLaMA 3.2 on Ollama + local Whisper. Fully free, fully local.</span>
+    </div>
+    <div class="work-cta">View on GitHub</div>
+  </a>
+
+  <a class="work" href="https://www.linkedin.com/posts/anshulraman06_engineering-robotics-labview-ugcPost-7454015401723719680-FJUj" target="_blank">
+    <div>
+      <div class="work-t"><b>EV3 Robot</b></div>
+      <div class="work-tag">— Autonomous Engineering Project</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">UC Engineering Design · 2025</span>
+      <span class="work-meta-row">LabVIEW state machine. Line follow. Bin classification. Drop-off. 4 prototypes, 5 rewrites.</span>
+    </div>
+    <div class="work-cta">View on LinkedIn</div>
+  </a>
+
+  <a class="work" href="https://github.com/itsramananshul" target="_blank">
+    <div>
+      <div class="work-t"><b>Security Lab</b></div>
+      <div class="work-tag">— RAT, Wi-Fi, Phishing labs</div>
+    </div>
+    <div class="work-meta">
+      <span class="work-meta-row">Coursework · 2024</span>
+      <span class="work-meta-row">Metasploit, Aircrack-ng, ESP8266 wireless auditing, social engineering.</span>
+    </div>
+    <div class="work-cta">View on GitHub</div>
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <h2>A little<br><i>about me.</i></h2>
+  <div class="about-body">
+    <p>I'm a <em>computer science sophomore</em> at the University of Cincinnati, and the <em>founding engineer at OpenPrem.</em></p>
+    <p>I've spent the last year building <em>ARIA</em> — a personal AI that runs in the background of my life, every day, without being asked. It writes my morning briefings before I'm awake. It manages my deadlines, my email, my decisions. It is the thing I'm most proud of having built.</p>
+    <p>The rest is hackathons, security labs, and twelve other shipped projects. <em>I am most comfortable when something has to actually work, in front of real users, by morning.</em></p>
+  </div>
+</section>
+
+<div class="three-col">
+  <div>
+    <h3>Currently</h3>
+    <p>Founding Engineer at OpenPrem · Cincinnati, OH. Sophomore at UC. GPA 3.68 · Dean's List Fall 2025.</p>
+  </div>
+  <div>
+    <h3>For hire</h3>
+    <p>Available for AI engineering, internships, hackathon teams, and security collabs. Anything that ships.</p>
+  </div>
+  <div>
+    <h3>Loud quiet</h3>
+    <p>Tennis · Top 150 AITA. Bearcat Tech Innovators · IEEE · UC Robotics. The good engineers I know mostly do something else, too.</p>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="contact-line">Want to <i>build</i> something <i>together?</i></p>
+  <a class="contact-mail" href="mailto:ar.dev@anshulraman.com">ar.dev@anshulraman.com</a>
+  <div class="contact-socials">
+    <a href="https://github.com/itsramananshul" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anshulraman06" target="_blank">LinkedIn</a>
+    <a href="mailto:ar.dev@anshulraman.com">Email</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Anshul Raman</span>
+  <span>v01 · thibaut clone</span>
+  <span><i>Cincinnati · OH</i></span>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('nav a').forEach(n=>n.classList.toggle('active',n===a));}}}));
+</script>
+</body>
+</html>

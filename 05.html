@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anshul Raman · v05 / Minh Pham clone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0d0d; --bg-2:#161616; --ink:#fff; --ink-2:rgba(255,255,255,.6); --ink-3:rgba(255,255,255,.35);
+  --line:rgba(255,255,255,.08);
+  --yellow:#FFE03A;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --gx: clamp(20px,5vw,72px);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+::selection { background:var(--yellow); color:#000; }
+html { background:var(--bg); }
+body {
+  background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:16px; line-height:1.55; font-weight:400;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+
+/* PRELOADER ── Start 00% */
+#pre {
+  position:fixed; inset:0; z-index:200;
+  background:var(--bg); color:var(--ink);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:opacity .9s cubic-bezier(.2,.8,.2,1), visibility .9s ease;
+}
+#pre.done { opacity:0; visibility:hidden; pointer-events:none; }
+#pre .pre-num {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(120px, 22vw, 360px); line-height:.85; letter-spacing:-.06em;
+  display:flex; align-items:baseline; gap:6px;
+}
+#pre .pre-num .pct { font-family:var(--sans); font-weight:300; font-size:.4em; opacity:.5; }
+#pre .pre-meta {
+  margin-top:32px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.18em; text-transform:uppercase; opacity:.5;
+}
+#pre .pre-start {
+  margin-top:48px; font-family:var(--sans); font-weight:600;
+  background:var(--yellow); color:#000;
+  padding:16px 36px; border-radius:999px;
+  font-size:14px;
+  opacity:0; transform:translateY(8px); cursor:pointer; border:none;
+  transition:opacity .5s, transform .5s;
+}
+#pre .pre-start.ready { opacity:1; transform:translateY(0); }
+#pre .pre-start:hover { background:#fff; }
+
+/* nav */
+nav {
+  position:fixed; top:18px; left:18px; right:18px; z-index:80;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 22px; background:rgba(13,13,13,.85);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--line); border-radius:999px;
+}
+.brand { font-family:var(--sans); font-weight:700; font-size:18px; letter-spacing:-.025em; display:flex; align-items:center; gap:8px; }
+.brand::before { content:''; width:10px; height:10px; border-radius:50%; background:var(--yellow); }
+.nav-mid { display:flex; gap:18px; font-family:var(--sans); font-size:14px; font-weight:500; }
+.nav-mid a:hover { color:var(--yellow); }
+.nav-status { font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-3); }
+
+/* HERO */
+.hero { padding:140px var(--gx) 100px; }
+.hero-title {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(64px, 12vw, 220px); line-height:.85; letter-spacing:-.06em;
+  margin-bottom:24px;
+}
+.hero-title .yel { color:var(--yellow); }
+.hero-tag {
+  font-family:var(--sans); font-style:italic; font-weight:400;
+  font-size:clamp(20px, 2.4vw, 32px); line-height:1.3; letter-spacing:-.015em;
+  color:var(--ink-2); max-width:50ch;
+}
+.hero-tag b { color:var(--yellow); font-weight:500; font-style:normal; }
+
+/* About + sections */
+.s { padding:120px var(--gx); border-top:1px solid var(--line); }
+.s-eyebrow {
+  font-family:var(--sans); font-weight:500; font-size:14px;
+  color:var(--yellow); margin-bottom:18px;
+  display:flex; align-items:center; gap:10px;
+}
+.s-eyebrow::before { content:''; width:24px; height:1px; background:var(--yellow); }
+.s-h {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(40px, 6vw, 96px); line-height:.95; letter-spacing:-.045em;
+  margin-bottom:24px;
+}
+.s-h .it { font-style:italic; font-weight:300; color:var(--ink-2); }
+.s-sub {
+  font-family:var(--sans); font-size:18px; line-height:1.55; color:var(--ink-2);
+  max-width:60ch;
+}
+
+/* WHAT I DO grid */
+.what-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; margin-top:48px; }
+.what {
+  background:var(--bg-2); border-radius:18px;
+  padding:36px; min-height:240px;
+  display:flex; flex-direction:column; gap:18px;
+  transition:background .3s, transform .3s;
+}
+.what:hover { background:#222; transform:translateY(-4px); }
+.what-icon {
+  width:48px; height:48px; border-radius:14px;
+  background:var(--yellow); color:#000;
+  display:grid; place-items:center; font-size:22px; font-weight:800;
+}
+.what-h {
+  font-family:var(--sans); font-weight:700; font-size:28px; letter-spacing:-.025em;
+}
+.what-d { font-size:15px; line-height:1.6; color:var(--ink-2); }
+
+/* WORK / featured cards */
+.featured { display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; margin-top:48px; }
+.fc {
+  background:var(--bg-2); border-radius:18px;
+  padding:32px; min-height:300px;
+  display:flex; flex-direction:column; gap:14px;
+  transition:transform .3s, background .3s;
+}
+.fc:hover { transform:translateY(-4px); background:#1c1c1c; }
+.fc-img-stub {
+  background:linear-gradient(135deg, #2a2a2a, #161616);
+  border-radius:12px; height:160px; position:relative;
+  display:flex; align-items:flex-end; padding:16px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; opacity:.7;
+}
+.fc-img-stub.aria { background:linear-gradient(135deg, #1f0d2e, #0d0d0d); }
+.fc-img-stub.aria::before { content:'⌬'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:80px; color:var(--yellow); opacity:.85; }
+.fc-img-stub.auriva { background:radial-gradient(circle at 30% 30%, #4a3568, #160a25); }
+.fc-img-stub.auriva::before { content:'॥'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:120px; color:#e8c97a; opacity:.85; }
+.fc-img-stub.vox { background:radial-gradient(circle at 70% 30%, #5a1a1a, #1a0a0a); }
+.fc-img-stub.vox::before { content:'+'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:120px; color:#ff6a6a; }
+.fc-img-stub.gi { background:radial-gradient(circle at 30% 70%, #1a4a3a, #0d1d18); }
+.fc-img-stub.gi::before { content:'A+'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:80px; font-weight:800; color:var(--yellow); }
+.fc-cat { font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--yellow); }
+.fc-t { font-family:var(--sans); font-weight:700; font-size:28px; letter-spacing:-.025em; }
+.fc-d { font-size:14px; line-height:1.6; color:var(--ink-2); margin-top:auto; }
+
+/* HISTORY timeline */
+.history {
+  margin-top:48px; border-top:1px solid var(--line);
+}
+.hist-row {
+  display:grid; grid-template-columns:120px 1fr 1fr;
+  gap:24px; padding:20px 0; border-bottom:1px solid var(--line);
+  align-items:baseline;
+}
+.hist-row:hover { padding-left:8px; padding-right:8px; background:rgba(255,255,255,.02); }
+.hist-when {
+  font-family:var(--sans); font-weight:800;
+  font-size:24px; letter-spacing:-.02em;
+}
+.hist-when.now { color:var(--yellow); }
+.hist-role { font-family:var(--sans); font-weight:600; font-size:18px; letter-spacing:-.015em; }
+.hist-org { font-family:var(--mono); font-size:13px; color:var(--ink-2); }
+
+/* Clients grid */
+.clients { display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:48px; }
+.cl {
+  background:var(--bg-2); border-radius:18px;
+  padding:32px; min-height:200px;
+  display:flex; flex-direction:column; gap:12px;
+  transition:background .3s;
+}
+.cl:hover { background:#222; }
+.cl-name { font-family:var(--sans); font-weight:800; font-size:28px; letter-spacing:-.025em; color:var(--yellow); }
+.cl-d { font-size:14px; line-height:1.6; color:var(--ink-2); margin-top:auto; }
+
+/* CONTACT */
+#contact { padding:160px var(--gx); border-top:1px solid var(--line); }
+.contact-h {
+  font-family:var(--sans); font-weight:800;
+  font-size:clamp(60px, 11vw, 200px); line-height:.85; letter-spacing:-.05em;
+  margin-bottom:32px;
+}
+.contact-h .yel { color:var(--yellow); font-style:italic; font-weight:500; }
+.contact-row {
+  display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin-top:48px;
+}
+.contact-cta {
+  background:var(--yellow); color:#000;
+  font-family:var(--sans); font-weight:600; font-size:16px;
+  padding:18px 28px; border-radius:999px;
+  transition:transform .25s, background .25s;
+}
+.contact-cta:hover { transform:translateY(-2px); background:#fff; }
+
+footer {
+  border-top:1px solid var(--line); padding:24px var(--gx);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+
+@media (max-width:768px) {
+  .nav-mid { display:none; }
+  .what-grid, .featured, .clients { grid-template-columns:1fr; }
+  .hist-row { grid-template-columns:90px 1fr; gap:8px 16px; }
+  .hist-org { grid-column:2; }
+  footer { flex-direction:column; gap:6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="pre">
+  <div class="pre-num"><span id="preN">00</span><span class="pct">%</span></div>
+  <div class="pre-meta">Loading · Anshul Raman</div>
+  <button class="pre-start" id="preStart">Start ↗</button>
+</div>
+
+<nav>
+  <a class="brand" href="#">Anshul Raman</a>
+  <div class="nav-mid">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <span class="nav-status">⚡ Available</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">
+    Anshul<br>
+    <span class="yel">Raman</span>
+  </h1>
+  <p class="hero-tag">making things that <b>actually run in production</b> since 2024</p>
+</section>
+
+<!-- ABOUT -->
+<section class="s" id="about">
+  <div class="s-eyebrow">About me</div>
+  <h2 class="s-h">I'm a <span class="it">selectively obsessed</span> CS sophomore with a strong focus on producing AI systems that <em>quietly</em> run.</h2>
+</section>
+
+<!-- WHAT I DO -->
+<section class="s">
+  <div class="s-eyebrow">What I do</div>
+  <h2 class="s-h">In <span class="it">five</span> directions.</h2>
+
+  <div class="what-grid">
+    <div class="what">
+      <div class="what-icon">⌬</div>
+      <div class="what-h">AI Systems</div>
+      <div class="what-d">I build production AI agents that run for months without anyone touching them. ARIA has been live for a year.</div>
+    </div>
+    <div class="what">
+      <div class="what-icon">⚡</div>
+      <div class="what-h">Full Stack</div>
+      <div class="what-d">Next.js, Vercel + Supabase, edge functions, PWAs. The kind of stack that ships in 24 hours and stays up for 365.</div>
+    </div>
+    <div class="what">
+      <div class="what-icon">🔊</div>
+      <div class="what-h">Voice &amp; Audio</div>
+      <div class="what-d">I use fancy voice agents that make my software seem smarter than it actually is.</div>
+    </div>
+    <div class="what">
+      <div class="what-icon">🛡</div>
+      <div class="what-h">Security</div>
+      <div class="what-d">Offensive lab work in controlled environments. Pen-test rigs, social-engineering studies. The defensive lessons came in handy.</div>
+    </div>
+    <div class="what">
+      <div class="what-icon">🤖</div>
+      <div class="what-h">Hardware</div>
+      <div class="what-d">LabVIEW, ESP8266, LEGO Mindstorms. I thought hardware was easy until it wasn't.</div>
+    </div>
+    <div class="what">
+      <div class="what-icon">📚</div>
+      <div class="what-h">Learning Loud</div>
+      <div class="what-d">Sophomore at UC. GPA 3.68. Dean's List Fall 2025. I read every research paper I can without falling asleep.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="s" id="work">
+  <div class="s-eyebrow">Selected work</div>
+  <h2 class="s-h">Things I've <span class="it">actually built.</span></h2>
+  <p class="s-sub">Four featured below. Nine more in the history. All shipped. All real.</p>
+
+  <div class="featured">
+    <a class="fc" href="https://aria.anshulraman.com" target="_blank">
+      <div class="fc-img-stub aria"></div>
+      <div class="fc-cat">— Adaptive AI · 1y in prod</div>
+      <div class="fc-t">ARIA</div>
+      <div class="fc-d">Personal AI live in production for a year. 12 serverless fns, 6 cron jobs, 16/16 regression suite passing against the live endpoint.</div>
+    </a>
+    <a class="fc" href="https://auriva.anshulraman.com" target="_blank">
+      <div class="fc-img-stub auriva"></div>
+      <div class="fc-cat">— Multi-Faith AI</div>
+      <div class="fc-t">Auriva AI</div>
+      <div class="fc-d">16 sacred traditions, each with a dedicated live scripture API and authored Gemini prompt. Voice agents on iOS / Android / desktop.</div>
+    </a>
+    <a class="fc" href="https://voxvitals.anshulraman.tech/" target="_blank">
+      <div class="fc-img-stub vox"></div>
+      <div class="fc-cat">— 3rd · Medpace · 24h</div>
+      <div class="fc-t">VoxVitals</div>
+      <div class="fc-d">AI clinical-trial platform with voice + camera physiological sensing. Built in 24 hours.</div>
+    </a>
+    <a class="fc" href="https://gradintel.anshulraman.com" target="_blank">
+      <div class="fc-img-stub gi"></div>
+      <div class="fc-cat">— Live · Multi-LLM</div>
+      <div class="fc-t">GradeIntel</div>
+      <div class="fc-d">Cloud-synced GPA dashboard with grade simulator, multi-model AI assistant (Gemini, Grok, Claude, OpenAI), Canvas LMS integration.</div>
+    </a>
+  </div>
+</section>
+
+<!-- HISTORY (timeline) -->
+<section class="s">
+  <div class="s-eyebrow">Experience</div>
+  <h2 class="s-h">Some <span class="it">history</span></h2>
+  <p class="s-sub">Two years of building real systems and one founding-engineer role to my name. Most of it sophomore year.</p>
+
+  <div class="history">
+    <div class="hist-row">
+      <div class="hist-when now">NOW</div>
+      <div class="hist-role">Founding Engineer</div>
+      <div class="hist-org">OpenPrem · Cincinnati, OH</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2026</div>
+      <div class="hist-role">Builder</div>
+      <div class="hist-org">ARIA · Auriva · GradeIntel · ReachOut · VoxVitals</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2025</div>
+      <div class="hist-role">Hackathon contender</div>
+      <div class="hist-org">RevolutionUC 3rd · MLH Best Use of Presage · UC Engineering Design</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2025</div>
+      <div class="hist-role">Builder</div>
+      <div class="hist-org">AI Phone Agent · EV3 Autonomous Robot</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2024</div>
+      <div class="hist-role">Security student</div>
+      <div class="hist-org">RAT · Wi-Fi Pen Test · Phishing labs · ATM &amp; Bus systems</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2023</div>
+      <div class="hist-role">President · Science Club</div>
+      <div class="hist-org">Sant Gyaneshwar Model School · Delhi, India</div>
+    </div>
+    <div class="hist-row">
+      <div class="hist-when">2022</div>
+      <div class="hist-role">District U-19 Tennis Champion</div>
+      <div class="hist-org">Top 150 AITA · Karnal, Haryana</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS / TECH stacks I use -->
+<section class="s">
+  <div class="s-eyebrow">Tools I reach for</div>
+  <h2 class="s-h">Stacks I <span class="it">trust.</span></h2>
+  <p class="s-sub">I use what gets things to production. Anything below is tech I've shipped with.</p>
+
+  <div class="clients">
+    <div class="cl"><div class="cl-name">AI &amp; LLMs</div><div class="cl-d">Gemini 2.5 · Claude · OpenAI · Grok · Ollama (LLaMA 3.2) · Groq Whisper · faster-whisper · OpenWakeWord · edge-tts · ElevenLabs · gTTS</div></div>
+    <div class="cl"><div class="cl-name">Stack</div><div class="cl-d">Node.js · Python · TypeScript · Next.js · React · Vercel · Vercel Edge · Supabase · PostgreSQL · PWA · Three.js</div></div>
+    <div class="cl"><div class="cl-name">Voice &amp; Web</div><div class="cl-d">Web Speech API · Service Workers · Server-Sent Events · WebRTC · iOS / Android speechSynthesis</div></div>
+    <div class="cl"><div class="cl-name">Integrations</div><div class="cl-d">Google OAuth2 · Gmail · Calendar · Telegram Bot · GitHub API · Twilio · Canvas LMS · Hunter.io · API.Bible</div></div>
+    <div class="cl"><div class="cl-name">Security</div><div class="cl-d">Metasploit · Nmap · Aircrack-ng · Hashcat · Hydra · John the Ripper · Wireshark · SET · Kali Linux · Parrot OS</div></div>
+    <div class="cl"><div class="cl-name">Hardware</div><div class="cl-d">LabVIEW · ESP8266 · LEGO Mindstorms · Sensors · State Machines</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="contact-h">let's <span class="yel">make</span><br>something good.</h2>
+  <p class="s-sub" style="font-size:18px;">For internships, AI engineering work, hackathon teams, security collabs &mdash; or just to talk about the ideas. I read every email.</p>
+  <div class="contact-row">
+    <a class="contact-cta" href="mailto:ar.dev@anshulraman.com">ar.dev@anshulraman.com →</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Anshul Raman</span>
+  <span>v05 · minh pham clone</span>
+  <span>Cincinnati · OH</span>
+</footer>
+
+<script>
+// preloader
+const preEl = document.getElementById('pre');
+const preN  = document.getElementById('preN');
+const preStart = document.getElementById('preStart');
+let p = 0;
+const tick = setInterval(() => {
+  p += Math.random()*8 + 2;
+  if (p >= 100) { p = 100; clearInterval(tick); preStart.classList.add('ready'); }
+  preN.textContent = String(Math.floor(p)).padStart(2,'0');
+}, 80);
+preStart.addEventListener('click', () => preEl.classList.add('done'));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const t=document.querySelector(id);if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}}}));
+</script>
+</body>
+</html>
