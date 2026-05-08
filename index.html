@@ -428,46 +428,52 @@ h2.section-title .accent {
 .paper-card.warn .pc-tag { color: rgba(255,255,255,.75); }
 .paper-card.warn .pc-body { color: #fff; }
 
-/* Floating hero cards — original scattered layout. Spread
-   across the hero so they frame the title and intro. */
-.pc-1 { top: 8%;  left: 6%;   width: 220px; transform: rotate(-6deg) translateZ(60px); }
-.pc-2 { top: 18%; right: 8%;  width: 240px; transform: rotate(7deg)  translateZ(120px); }
-.pc-3 { top: 54%; left: 2%;   width: 200px; transform: rotate(-3deg) translateZ(40px); }
-.pc-4 { top: 60%; right: 4%;  width: 230px; transform: rotate(8deg)  translateZ(80px); }
-.pc-5 { top: 32%; left: 38%;  width: 210px; transform: rotate(2deg)  translateZ(160px); }
+/* Floating hero cards — DESKTOP / TABLET: clustered on the
+   RIGHT side, paired in two rows + one solo. Right margin is
+   generous enough that mouse-parallax + rotation extension
+   never push cards past the viewport edge. */
+.pc-1 { top: 8%;  right: 28%; width: 200px; transform: rotate(-5deg) translateZ(60px); }
+.pc-2 { top: 8%;  right: 6%;  width: 210px; transform: rotate(6deg)  translateZ(110px); }
+.pc-3 { top: 36%; right: 28%; width: 195px; transform: rotate(-4deg) translateZ(50px); }
+.pc-4 { top: 36%; right: 6%;  width: 205px; transform: rotate(5deg)  translateZ(120px); }
+.pc-5 { top: 64%; right: 16%; width: 225px; transform: rotate(-3deg) translateZ(80px); }
 
-/* Tablet */
+/* Smaller laptop / iPad landscape — still right side, smaller */
 @media (max-width: 1100px) {
-  .pc-1 { width: 180px; left: 4%; }
-  .pc-2 { width: 195px; right: 4%; }
-  .pc-3 { width: 165px; left: 2%; }
-  .pc-4 { width: 185px; right: 2%; }
-  .pc-5 { width: 175px; left: 36%; }
+  .pc-1 { width: 165px; right: 24%; }
+  .pc-2 { width: 175px; right: 5%;  }
+  .pc-3 { width: 160px; right: 24%; }
+  .pc-4 { width: 170px; right: 5%;  }
+  .pc-5 { width: 190px; right: 14%; }
 }
+/* iPad portrait */
 @media (max-width: 920px) {
   .pc-5 { display: none; }
-  .pc-1 { width: 160px; top: 6%;  left: 4%; }
-  .pc-2 { width: 170px; top: 10%; right: 4%; }
-  .pc-3 { width: 150px; top: 60%; left: 2%; }
-  .pc-4 { width: 160px; top: 64%; right: 2%; }
-  .paper-card { padding: 14px 16px; }
-  .paper-card .pc-body { font-size: 14px; }
+  .pc-1 { width: 145px; top: 7%;  right: 32%; }
+  .pc-2 { width: 155px; top: 7%;  right: 6%; }
+  .pc-3 { width: 140px; top: 30%; right: 32%; }
+  .pc-4 { width: 150px; top: 30%; right: 6%; }
+  .paper-card { padding: 13px 15px; }
+  .paper-card .pc-body { font-size: 13px; line-height: 1.22; }
+  .paper-card .pc-tag  { font-size: 9.5px; }
 }
-/* Phone — keep 4 cards framing the title at the corners */
-@media (max-width: 600px) {
-  .pc-1 { width: 138px; top: 5%;  left: -2%;  opacity: .9; transform: rotate(-8deg) translateZ(40px); }
-  .pc-2 { width: 144px; top: 9%;  right: -3%; opacity: .9; transform: rotate(9deg)  translateZ(80px); }
-  .pc-3 { width: 132px; top: 70%; left: -3%;  opacity: .82; transform: rotate(-5deg) translateZ(20px); }
-  .pc-4 { width: 138px; top: 74%; right: -2%; opacity: .82; transform: rotate(7deg)  translateZ(60px); }
+/* PHONE — switch to scattered layout framing the title at corners */
+@media (max-width: 700px) {
+  .pc-5 { display: none; }
+  .pc-1 { width: 138px; top: 5%;  left: -2%;  right: auto; opacity: .9;  transform: rotate(-8deg) translateZ(40px); }
+  .pc-2 { width: 144px; top: 9%;  right: -3%; left: auto;  opacity: .9;  transform: rotate(9deg)  translateZ(80px); }
+  .pc-3 { width: 132px; top: 70%; left: -3%;  right: auto; opacity: .82; transform: rotate(-5deg) translateZ(20px); }
+  .pc-4 { width: 138px; top: 74%; right: -2%; left: auto;  opacity: .82; transform: rotate(7deg)  translateZ(60px); }
   .paper-card .pc-tag  { font-size: 9px; margin-bottom: 6px; }
   .paper-card .pc-body { font-size: 12.5px; line-height: 1.22; }
   .paper-card { padding: 11px 13px; border-radius: 12px; }
 }
+/* Tiny phones — drop one card */
 @media (max-width: 380px) {
   .pc-3 { display: none; }
-  .pc-1 { width: 124px; top: 4%; left: -4%; }
-  .pc-2 { width: 128px; top: 7%; right: -4%; }
-  .pc-4 { width: 124px; top: 76%; right: -3%; }
+  .pc-1 { width: 124px; top: 4%; left: -4%; right: auto; }
+  .pc-2 { width: 128px; top: 7%; right: -4%; left: auto; }
+  .pc-4 { width: 124px; top: 76%; right: -3%; left: auto; }
 }
 
 .hero-fg {
@@ -1813,28 +1819,26 @@ h2.section-title .accent {
   <!-- ─── HERO ─── -->
   <section class="hero" id="home">
     <div class="hero-bg" aria-hidden="true">
-      <!-- 1 & 2: cream article cards -->
+      <!-- 5 thematic identity cards -->
       <div class="paper-card pc-1 cream" data-depth="0.7">
-        <span class="pc-tag">2025 · Article</span>
-        <span class="pc-body">Beyond the Warrant — Privacy in the Age of Digital Searches</span>
+        <span class="pc-tag">Law Review</span>
+        <span class="pc-body">Privacy · Surveillance · Rights</span>
       </div>
       <div class="paper-card pc-2 cream" data-depth="1.1">
-        <span class="pc-tag">2026 · Article</span>
-        <span class="pc-body">Echoes After Death — The Right to Be Forgotten</span>
+        <span class="pc-tag">Mock Trial</span>
+        <span class="pc-body">Direct · Cross · Closing</span>
       </div>
-      <!-- 3 & 4: dark certificate cards -->
       <div class="paper-card pc-3 dark" data-depth="0.5">
-        <span class="pc-tag">Certificate</span>
-        <span class="pc-body">Paralegal Certificate Course — BARBRI</span>
+        <span class="pc-tag">Legal Studies</span>
+        <span class="pc-body">Justice · Institutions · Advocacy</span>
       </div>
       <div class="paper-card pc-4 dark" data-depth="0.9">
-        <span class="pc-tag">Certificate</span>
-        <span class="pc-body">Advanced Paralegal Certificate — BARBRI</span>
+        <span class="pc-tag">Women's Rights</span>
+        <span class="pc-body">Gender · Equality · Power</span>
       </div>
-      <!-- 5: warn-red Education card -->
       <div class="paper-card pc-5 warn" data-depth="1.4">
-        <span class="pc-tag">Education</span>
-        <span class="pc-body">Triple Major — Pol. Sci · Sociology · Legal Studies</span>
+        <span class="pc-tag">Public Discourse</span>
+        <span class="pc-body">Advocacy · Communication · Argumentation</span>
       </div>
     </div>
 
@@ -2041,7 +2045,6 @@ h2.section-title .accent {
       <article class="exp-card reveal delay-2" data-tilt>
         <div class="exp-period">
           <span class="yr">Nov 2024 - Present</span>
-          <span class="now">Now</span>
         </div>
         <div>
           <h3 class="exp-role">Writer</h3>
@@ -2090,14 +2093,17 @@ h2.section-title .accent {
     <div class="adv-grid">
       <article class="adv-card reveal" data-tilt>
         <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <!-- gavel head -->
-            <path d="M13 4l7 7-3 3-7-7z"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- gavel head (rectangle, rotated) -->
+            <rect x="13.5" y="2" width="7.5" height="4" rx="0.6" transform="rotate(45 17.25 4)"/>
             <!-- handle -->
-            <line x1="11" y1="6" x2="4" y2="13"/>
-            <line x1="14" y1="9" x2="7" y2="16"/>
-            <!-- striking block / base -->
-            <line x1="3" y1="20" x2="14" y2="20"/>
+            <path d="M11 7l-7 7"/>
+            <path d="M14 10l-7 7"/>
+            <!-- striking sound block -->
+            <rect x="2.5" y="18.5" width="11" height="2.5" rx="0.4"/>
+            <!-- base support lines -->
+            <path d="M4 21v.8"/>
+            <path d="M12 21v.8"/>
           </svg>
         </div>
         <h4>Mock Trial</h4>
@@ -2431,9 +2437,11 @@ h2.section-title .accent {
       paperCards.forEach(card => {
         const depth = parseFloat(card.dataset.depth || '0.6');
         const base = baseTransforms.get(card) || '';
-        const py = scrollY * depth * 0.18;       // parallax shift
-        const tx = mouseX * depth * 14;
-        const ty = mouseY * depth * 10;
+        const py = scrollY * depth * 0.18;       // parallax shift on scroll
+        // Mouse parallax — kept gentle so cards don't drift
+        // far enough to clip against the viewport edge.
+        const tx = mouseX * depth * 8;
+        const ty = mouseY * depth * 6;
         card.style.transform = `${base} translate3d(${tx.toFixed(1)}px, ${(-py + ty).toFixed(1)}px, 0)`;
       });
     }
