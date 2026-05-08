@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hardware deck · pixel-perfect mockup</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#000; }
+  body {
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:40px 12px; font-family:system-ui, sans-serif;
+    color:#fff; overflow-x:auto;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(900px 460px at 50% 30%, rgba(74,240,74,.10), transparent 60%),
+      radial-gradient(1100px 600px at 50% 100%, rgba(74,240,74,.04), transparent 60%);
+  }
+
+  .heading {
+    color:rgba(255,255,255,.5);
+    font-family:'Courier New', monospace;
+    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    margin-bottom:32px; z-index:2;
+    text-align:center; line-height:1.8;
+  }
+  .heading .gr { color:#0f0; }
+
+  /*
+    EXACT LAYOUT FROM www_thibaut_cool.html:
+    - keyboard side : 450 × 360
+    - middle panel  : 110 × 360
+    - scope side    : 425 × 360
+    Total natural size: 985 × 360
+  */
+  .deck {
+    position:relative; z-index:5;
+    display:flex; flex-direction:row;
+    width:985px; height:360px;
+    transform-origin:center;
+  }
+
+  /* ────────── LEFT (KEYBOARD + LCD) ────────── */
+  .keyboard {
+    position:relative;
+    width:450px; height:360px;
+    flex:none;
+  }
+  .deck-bg {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; user-select:none; pointer-events:none;
+    border-radius:18px 0 0 18px;
+  }
+
+  /* LCD readout video (animated "Available For Freelance") at top:43 left:38 size 370×44 */
+  .lcd-vid {
+    position:absolute; top:43px; left:38px;
+    width:370px; height:44px;
+    object-fit:cover; pointer-events:none;
+  }
+  /* LCD bottom strip at bottom:0 left:0 size 425×45 */
+  .lcd-strip {
+    position:absolute; bottom:0; left:0;
+    width:425px; height:45px;
+    object-fit:cover; pointer-events:none;
+  }
+
+  /* ── KEYCAPS ──
+     Each is an <a> sized exactly per the source CSS, positioned absolutely.
+     Inner <img> moves down 12px on hover (matches Framer behavior).
+     Hover also fades in a colored radial-gradient halo behind. */
+  .key {
+    position:absolute;
+    overflow:visible;
+    cursor:pointer; text-decoration:none;
+    z-index:3;
+  }
+  .key img {
+    position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    transition: top .25s cubic-bezier(.2,.8,.2,1);
+    user-select:none; pointer-events:none;
+    display:block;
+  }
+  .key:hover img { top:12px; }
+
+  /* hover halo */
+  .key::before {
+    content:''; position:absolute;
+    inset:-50% -35% -35% -35%;
+    border-radius:50%; pointer-events:none;
+    opacity:0; transform:scale(.6);
+    transition:opacity .45s, transform .55s cubic-bezier(.2,.8,.2,1);
+    mix-blend-mode:plus-lighter; filter:blur(14px);
+    z-index:-1;
+  }
+  .key:hover::before { opacity:1; transform:scale(1); }
+  .key.white::before  { background:radial-gradient(50% 50%, rgba(255,250,235,.85), rgba(255,250,235,0) 70%); }
+  .key.cyan::before   { background:radial-gradient(50% 50%, rgba(99,227,255,.95), rgba(99,227,255,0) 70%); }
+  .key.orange::before { background:radial-gradient(50% 50%, rgba(255,140,60,.95), rgba(160,80,180,0) 70%); }
+  .key.cream::before  { background:radial-gradient(50% 50%, rgba(245,210,140,.85), rgba(245,210,140,0) 70%); }
+  .key.dark::before   { background:radial-gradient(50% 50%, rgba(11,227,105,.85), rgba(0,127,73,0) 70%); }
+  .key.pink::before   { background:radial-gradient(50% 50%, rgba(245,168,200,.95), rgba(170,40,100,0) 70%); }
+  .key.blue::before   { background:radial-gradient(50% 50%, rgba(90,120,240,.95), rgba(20,40,150,0) 70%); }
+
+  /*  ────── EXACT KEYCAP POSITIONS FROM SOURCE  ──────
+      width  height  top   left
+      173    108     77    32   ← HOME
+      100    108     77    204  ← G3 (CV)
+      100    108     77    301  ← IG
+      103    108     153   29   ← @ Email
+      173    108     153   125  ← HIRE ME (works)
+      100    108     153   299  ← X
+      178    108     227   18   ← CALL ME (about)
+      104    108     227   193  ← DB
+      104    108     227   295  ← BH
+  */
+  .k-home    { top:77px;  left:32px;  width:173px; height:108px; }
+  .k-g3      { top:77px;  left:204px; width:100px; height:108px; }
+  .k-ig      { top:77px;  left:301px; width:100px; height:108px; }
+  .k-at      { top:153px; left:29px;  width:103px; height:108px; }
+  .k-hire    { top:153px; left:125px; width:173px; height:108px; }
+  .k-x       { top:153px; left:299px; width:100px; height:108px; }
+  .k-callme  { top:227px; left:18px;  width:178px; height:108px; }
+  .k-db      { top:227px; left:193px; width:104px; height:108px; }
+  .k-bh      { top:227px; left:295px; width:104px; height:108px; }
+
+  /* ────────── MIDDLE PANEL (110 × 360) ────────── */
+  .panel {
+    width:110px; height:360px; flex:none;
+    position:relative;
+  }
+  .panel img {
+    width:100%; height:100%; object-fit:fill; display:block;
+    user-select:none; pointer-events:none;
+  }
+
+  /* ────────── RIGHT (SCOPE PANEL) ────────── */
+  .scope {
+    position:relative; width:425px; height:360px; flex:none;
+  }
+  .scope-bg {
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; pointer-events:none; user-select:none;
+    border-radius:0 18px 18px 0;
+  }
+  /* CRT video at top:59 left:80 size 328×256 (desktop) */
+  .scope-vid {
+    position:absolute; top:59px; left:80px;
+    width:328px; height:256px;
+    object-fit:cover; pointer-events:none;
+  }
+
+  /* ────────── DEBUG TOOLS ────────── */
+  .toggle {
+    position:fixed; top:14px; right:14px; z-index:80;
+    font-family:'Courier New', monospace; font-size:11px;
+    background:rgba(0,0,0,.7); border:1px solid #0f0;
+    color:#0f0; padding:8px 14px; border-radius:6px;
+    cursor:pointer; letter-spacing:.08em; text-transform:uppercase;
+  }
+  .toggle:hover { background:#0f0; color:#000; }
+  body.dbg .key { outline:1.5px dashed rgba(255,0,255,.55); outline-offset:-1px; }
+  body.dbg .key:hover { outline-color:rgba(0,255,160,1); }
+
+  .caption {
+    margin-top:36px; max-width:740px; text-align:center;
+    color:rgba(255,255,255,.45);
+    font-family:'Courier New', monospace; font-size:11px;
+    letter-spacing:.16em; text-transform:uppercase; line-height:1.9;
+    z-index:2;
+  }
+  .caption .gr { color:#0f0; }
+
+  /* ────────── RESPONSIVE — scale the whole deck ──────────
+     The deck has fixed pixel positions (matches the source).
+     On smaller screens, scale the whole thing down via transform. */
+  @media (max-width: 1080px) {
+    .deck { transform: scale(0.85); }
+  }
+  @media (max-width: 880px) {
+    .deck { transform: scale(0.7); }
+    body { padding-top:80px; }
+  }
+  @media (max-width: 720px) {
+    .deck { transform: scale(0.55); }
+  }
+  @media (max-width: 560px) {
+    .deck { transform: scale(0.42); }
+    .heading { font-size:9.5px; }
+  }
+  @media (max-width: 420px) {
+    .deck { transform: scale(0.34); }
+  }
+</style>
+</head>
+<body>
+
+<div class="heading">
+  <span class="gr">●</span> &nbsp; HARDWARE DECK · PIXEL-PERFECT MOCKUP &nbsp; <span class="gr">●</span><br>
+  9 keycap PNGs + LCD video + scope video — all from thibaut.cool's actual assets<br>
+  Hover the keys to see them press down · click to navigate
+</div>
+
+<button class="toggle" onclick="document.body.classList.toggle('dbg')">Toggle hotspots</button>
+
+<!-- ════════ THE DECK ════════ -->
+<div class="deck">
+
+  <!-- ═══ LEFT: KEYBOARD + LCD ═══ -->
+  <div class="keyboard">
+    <!-- deck base render -->
+    <img class="deck-bg"
+         src="https://framerusercontent.com/images/iT5qW38srTQkWIhfDBKFI7t0c.png?width=850&height=720"
+         alt="">
+
+    <!-- LCD bottom strip (the green panel) -->
+    <img class="lcd-strip"
+         src="https://framerusercontent.com/images/FhX5JDdQ5h9hI3ExcyblKv0GpY.png?width=425&height=45"
+         alt="">
+
+    <!-- LCD animated readout (Available For Freelance) -->
+    <video class="lcd-vid"
+           src="https://framerusercontent.com/assets/NTPQwD8OtB7Vx4FSKblgSSFTTL8.mp4"
+           poster="https://framerusercontent.com/images/LGXMGy1doqpGtJcj5oFKqcey8.png?width=740&height=88"
+           loop muted playsinline autoplay></video>
+
+    <!-- ROW 1 -->
+    <a class="key white k-home" href="#hero" aria-label="HOME">
+      <img src="https://framerusercontent.com/images/KtIqmUXTPHsNEBAE4H0fLIOHwI.png?width=173&height=108" alt="HOME">
+    </a>
+    <a class="key cyan k-g3" href="https://github.com/itsramananshul" target="_blank" aria-label="GitHub">
+      <img src="https://framerusercontent.com/images/THw8mjOGbGntXHS1W97Xlgut4.png?width=98&height=108" alt="G3">
+    </a>
+    <a class="key orange k-ig" href="https://www.linkedin.com/in/anshulraman06" target="_blank" aria-label="LinkedIn / IG">
+      <img src="https://framerusercontent.com/images/IFd2dfQSzIj6HFASsLxT3ySPsOs.png?width=98&height=108" alt="IG">
+    </a>
+
+    <!-- ROW 2 -->
+    <a class="key cream k-at" href="mailto:ar.dev@anshulraman.com" aria-label="Email">
+      <img src="https://framerusercontent.com/images/kD0w1LenBDsNsJQqsdqqq51IzXw.png?width=103&height=108" alt="@">
+    </a>
+    <a class="key dark k-hire" href="mailto:ar.dev@anshulraman.com?subject=Hire%20Anshul" aria-label="HIRE ME">
+      <img src="https://framerusercontent.com/images/KCMpUs92v9n5Qsp8M3k7TGjEGxo.png?width=173&height=108" alt="HIRE ME">
+    </a>
+    <a class="key dark k-x" href="https://x.com/" target="_blank" aria-label="X / Twitter">
+      <img src="https://framerusercontent.com/images/RXuZJ8ocwVgpoAk8kGK9Jvs8o.png?width=100&height=108" alt="X">
+    </a>
+
+    <!-- ROW 3 -->
+    <a class="key cream k-callme" href="tel:+1" aria-label="CALL ME">
+      <img src="https://framerusercontent.com/images/mXkpo55AdMspPGiEE6Y7uKftm4.png?width=178&height=108" alt="CALL ME">
+    </a>
+    <a class="key pink k-db" href="https://github.com/itsramananshul" target="_blank" aria-label="DB">
+      <img src="https://framerusercontent.com/images/wMbDmeB4vyNZ7J1SYST9jLHUTXo.png?width=104&height=108" alt="DB">
+    </a>
+    <a class="key blue k-bh" href="https://www.linkedin.com/in/anshulraman06" target="_blank" aria-label="BH">
+      <img src="https://framerusercontent.com/images/z4pojactJ5SXSFXAYJYz0DOEA.png?width=104&height=108" alt="BH">
+    </a>
+  </div>
+
+  <!-- ═══ MIDDLE PANEL ═══ -->
+  <div class="panel">
+    <img src="https://framerusercontent.com/images/SVsHDg5KkIO0FRxYhIesxoF83ps.png?width=110&height=360" alt="">
+  </div>
+
+  <!-- ═══ RIGHT: SCOPE ═══ -->
+  <div class="scope">
+    <img class="scope-bg"
+         src="https://framerusercontent.com/images/S0ukfbm1gOMN44Z910yrv8PNXts.png?width=425&height=360"
+         alt="">
+    <video class="scope-vid"
+           src="https://framerusercontent.com/assets/h3ge2KKuYcGsAjrF289adsZsPN4.mp4"
+           loop muted playsinline autoplay></video>
+  </div>
+
+</div>
+
+<div class="caption">
+  Image &amp; video assets sourced from framerusercontent.com (Thibaut Crépelle's portfolio).<br>
+  <span class="gr">prototype only</span> &mdash; replace with your own renders before shipping live.
+</div>
+
+<script>
+  // iOS Safari sometimes blocks autoplay until user gesture
+  document.querySelectorAll('video').forEach(v => {
+    v.play().catch(() => {
+      document.body.addEventListener('click', () => v.play(), { once:true });
+    });
+  });
+</script>
+</body>
+</html>
