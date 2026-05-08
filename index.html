@@ -826,43 +826,68 @@ h2.section-title .accent {
 @media (max-width: 920px) {
   .paper-stack { gap: 14vh; padding: 8vh 0 12vh; }
   .paper-row.pair { gap: 18px; }
-  .paper-row.pair .paper-3d { width: min(330px, 46vw); aspect-ratio: 3.4 / 5; }
-  .paper-row.solo .paper-3d { width: min(460px, 90vw); }
-  .paper-row.pair .paper-3d .p-title { font-size: 20px; }
-  .paper-3d .p-meta  { font-size: 12.5px; }
+  .paper-row.pair .paper-3d { width: min(320px, 45vw); aspect-ratio: 3.4 / 5; padding: 22px 24px; }
+  .paper-row.solo .paper-3d { width: min(440px, 88vw); }
+  .paper-row.pair .paper-3d .p-title { font-size: 20px; line-height: 1.1; }
+  .paper-3d .p-meta  { font-size: 12.5px; max-width: 70%; }
 }
-/* Phone — paired rows stack to single column for readability */
-@media (max-width: 700px) {
-  .paper-row.pair { flex-direction: column; gap: 9vh; }
-  .paper-row.pair .paper-3d { width: min(440px, 88vw); aspect-ratio: 4 / 5; }
+/* Tablet portrait / large phone — paired rows collapse to single column */
+@media (max-width: 768px) {
+  .papers { padding: 72px var(--gutter) 72px; }
+  .paper-stack { gap: 10vh; padding: 6vh 0 10vh; }
+  .paper-row.pair { flex-direction: column; gap: 10vh; }
+  .paper-row.pair .paper-3d {
+    width: min(440px, 88vw);
+    aspect-ratio: 1.15 / 1;     /* shorter — easier to see whole card on phone */
+    padding: 24px 26px;
+  }
+  .paper-row.solo .paper-3d {
+    width: min(440px, 88vw);
+    aspect-ratio: 1.15 / 1;
+    padding: 24px 26px;
+  }
+  .paper-3d .p-title { font-size: 22px; line-height: 1.12; }
+  .paper-3d .p-meta  { font-size: 12.5px; max-width: 70%; }
 }
 @media (max-width: 600px) {
-  .papers { padding: 64px var(--gutter) 64px; }
-  .paper-stack { gap: 9vh; padding: 4vh 0 8vh; }
-  .paper-row.pair { gap: 9vh; }
+  .papers { padding: 56px 18px 56px; }
+  .paper-stack { gap: 8vh; padding: 4vh 0 8vh; }
+  .paper-row.pair { gap: 8vh; }
   .paper-row.pair .paper-3d,
   .paper-row.solo .paper-3d {
     width: 92vw;
     aspect-ratio: 1.05 / 1;
-    padding: 22px 22px 20px;
+    padding: 20px 20px 18px;
     border-radius: 14px;
   }
-  .paper-3d .p-title { font-size: 20px; }
-  .paper-3d .p-meta  { font-size: 11.5px; max-width: 65%; }
+  .paper-3d .p-title { font-size: 19px; line-height: 1.15; }
+  .paper-3d .p-meta  { font-size: 11.5px; max-width: 64%; }
   .paper-3d .p-stamp { font-size: 9px; padding: 3px 8px; }
   .paper-3d .p-top   { font-size: 10px; }
   .paper-3d .p-tag   { padding: 4px 9px 4px 7px; }
-  .papers-head { margin-bottom: 36px; }
+  .papers-head { margin-bottom: 32px; }
+  .papers-head h2 { font-size: clamp(28px, 8vw, 40px); }
+  .papers-head p { font-size: 14px; }
 }
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .paper-stack { gap: 7vh; }
+  .paper-row.pair { gap: 7vh; }
   .paper-row.pair .paper-3d,
   .paper-row.solo .paper-3d {
     aspect-ratio: 1 / 1;
     padding: 18px 18px 16px;
   }
-  .paper-3d .p-title { font-size: 18px; }
-  .paper-3d .p-meta  { font-size: 11px; max-width: 100%; }
-  .paper-3d .p-bot   { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .paper-3d .p-title { font-size: 17px; }
+  .paper-3d .p-meta  { font-size: 10.5px; max-width: 100%; }
+  .paper-3d .p-bot   { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+@media (max-width: 360px) {
+  .paper-3d .p-title { font-size: 16px; }
+  .paper-row.pair .paper-3d,
+  .paper-row.solo .paper-3d {
+    padding: 16px 16px 14px;
+    border-radius: 12px;
+  }
 }
 
 /* ════════════════════════════════════════
